@@ -19,4 +19,9 @@ class Metadata
 
         return $metadata;
     }
+
+    public static function fromArray(array $data): self
+    {
+        return new self($data['correlation_id'] ?? null);
+    }
 }
