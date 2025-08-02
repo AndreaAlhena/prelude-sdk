@@ -2,6 +2,7 @@
 
 namespace Prelude\SDK\Services;
 
+use Prelude\SDK\Config\Config;
 use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Models\LookupResponse;
@@ -36,7 +37,7 @@ final class LookupService
             $queryParams['type'] = $type;
         }
 
-        $url = '/v2/lookup/' . urlencode($phoneNumber);
+        $url = Config::ENDPOINT_LOOKUP . '/' . urlencode($phoneNumber);
         if (!empty($queryParams)) {
             $url .= '?' . http_build_query($queryParams);
         }
