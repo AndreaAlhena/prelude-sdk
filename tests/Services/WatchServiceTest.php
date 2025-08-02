@@ -10,7 +10,7 @@ use Prelude\SDK\Models\PredictResponse;
 use Prelude\SDK\Services\WatchService;
 use Prelude\SDK\ValueObjects\Shared\Metadata;
 use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Watch\Target;
+use Prelude\SDK\ValueObjects\Shared\Target;
 
 describe('WatchService', function () {
     describe('predictOutcome method', function () {

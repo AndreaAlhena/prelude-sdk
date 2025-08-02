@@ -10,7 +10,7 @@ use Prelude\SDK\Models\VerificationResult;
 use Prelude\SDK\ValueObjects\Shared\Metadata;
 use Prelude\SDK\ValueObjects\Shared\Signals;
 use Prelude\SDK\ValueObjects\Verify\Options;
-use Prelude\SDK\ValueObjects\Verify\Target;
+use Prelude\SDK\ValueObjects\Shared\Target;
 
 /**
  * Verification Service for OTP verification
@@ -40,7 +40,7 @@ final class VerificationService
      */
     public function create(Target $target, ?Signals $signals, ?Options $options, ?Metadata $metadata = null, string $dispatchId = ''): Verification
     {
-        $data = $target->toArray();
+        $data = ['target' => $target->toArray()];
 
         if ($options) {
             $data['options'] = $options->toArray();
@@ -73,10 +73,10 @@ final class VerificationService
      */
     public function check(Target $target, string $code): VerificationResult
     {
-        $data = array_merge(
-            ['code' => $code],
-            $target->toArray()
-        );
+        $data = [
+            'code' => $code,
+            'target' => $target->toArray()
+        ];
 
         $response = $this->_httpClient->post(Config::ENDPOINT_VERIFICATION_CHECK, $data);
 

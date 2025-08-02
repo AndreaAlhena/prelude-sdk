@@ -4,7 +4,7 @@ use Prelude\SDK\Services\VerificationService;
 use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Models\Verification;
 use Prelude\SDK\Models\VerificationResult;
-use Prelude\SDK\ValueObjects\Verify\Target;
+use Prelude\SDK\ValueObjects\Shared\Target;
 use Prelude\SDK\Enums\TargetType;
 use Prelude\SDK\Config\Config;
 use Prelude\SDK\Exceptions\ApiException;
