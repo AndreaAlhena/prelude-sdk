@@ -6,23 +6,21 @@ use Prelude\SDK\Config\Config;
 use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Models\TransactionalMessage;
-use Prelude\SDK\ValueObjects\Transactional\TransactionalOptions;
+use Prelude\SDK\ValueObjects\Transactional\Options;
 
 /**
  * Transactional Service for sending transactional messages
  */
-class TransactionalService
+final class TransactionalService
 {
-    private HttpClient $_httpClient;
-
     /**
      * Create a new Transactional service instance
      * 
      * @param HttpClient $httpClient
      */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(private HttpClient $_httpClient)
     {
-        $this->_httpClient = $httpClient;
+        //
     }
 
     /**
@@ -34,7 +32,7 @@ class TransactionalService
      * @return TransactionalMessage
      * @throws PreludeException
      */
-    public function send(string $to, string $templateId, ?TransactionalOptions $options = null): TransactionalMessage
+    public function send(string $to, string $templateId, ?Options $options = null): TransactionalMessage
     {
         $data = [
             'to' => $to,

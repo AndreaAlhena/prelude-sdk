@@ -2,6 +2,7 @@
 
 namespace Prelude\SDK;
 
+use Prelude\SDK\Services\TransactionalService;
 use Prelude\SDK\Services\VerificationService;
 use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Exceptions\PreludeException;
@@ -18,6 +19,7 @@ class PreludeClient
     private string $baseUrl;
     
     // Service instances
+    private ?TransactionalService $transactionalService = null;
     private ?VerificationService $verificationService = null;
     
     /**
@@ -37,6 +39,20 @@ class PreludeClient
         $this->httpClient = new HttpClient($this->apiKey, $this->baseUrl);
     }
     
+    /**
+     * Get Transactional service instance
+     * 
+     * @return TransactionalService
+     */
+    public function transactional(): TransactionalService
+    {
+        if ($this->transactionalService === null) {
+            $this->transactionalService = new TransactionalService($this->httpClient);
+        }
+        
+        return $this->transactionalService;
+    }
+
     /**
      * Get Verification service instance
      * 
@@ -82,6 +98,7 @@ class PreludeClient
         $this->httpClient = $httpClient;
         
         // Reset service instances to use new HTTP client
+        $this->transactionalService = null;
         $this->verificationService = null;
     }
 }
