@@ -16,6 +16,7 @@ class Config
     public const ENDPOINT_TRANSACTIONAL = '/v2/transactional';
     public const ENDPOINT_VERIFICATION = '/v2/verification';
     public const ENDPOINT_VERIFICATION_CHECK = '/v2/verification/check';
+    public const ENDPOINT_WATCH_PREDICT = '/v2/watch/predict';
     
     // Default verification options
     public const DEFAULT_CODE_LENGTH = 6;
