@@ -15,7 +15,7 @@ use Prelude\SDK\PreludeClient;
 use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Exceptions\ApiException;
 use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\ValueObjects\Verify\Target;
+use Prelude\SDK\ValueObjects\Shared\Target;
 use Prelude\SDK\ValueObjects\Verify\Options;
 
 // Configuration
@@ -51,11 +51,11 @@ try {
     
     $result = $client->verification()->check($target, $otpCode);
     
-    if ($result->isValid()) {
+    if ($result->isSuccess()) {
         echo "   ✓ Phone number verified successfully!\n";
-        echo "   Verified at: {$result->getVerifiedAt()}\n";
+        echo "   Status: {$result->getStatus()->value}\n";
     } else {
-        echo "   ✗ Verification failed: {$result->getMessage()}\n";
+        echo "   ✗ Verification failed. Status: {$result->getStatus()->value}\n";
         
         // Handle specific failure scenarios based on status
         if ($result->getStatus() === 'blocked') {
