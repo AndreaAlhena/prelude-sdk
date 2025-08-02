@@ -1,9 +1,9 @@
 <?php
 
 use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\ValueObjects\Watch\Target;
+use Prelude\SDK\ValueObjects\Shared\Target;
 
-describe('Watch Target', function () {
+describe('Shared Target', function () {
     it('can be instantiated with phone number target', function () {
         $target = new Target(
             _value: '+1234567890',

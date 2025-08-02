@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Watch;
+namespace Prelude\SDK\ValueObjects\Shared;
 
 use Prelude\SDK\Enums\TargetType;
 
