@@ -12,6 +12,7 @@ class Config
     public const DEFAULT_USER_AGENT = 'Prelude-PHP-SDK/1.0.0';
     
     // API endpoints
+    public const ENDPOINT_TRANSACTIONAL = '/v2/transactional';
     public const ENDPOINT_VERIFICATION = '/v2/verification';
     public const ENDPOINT_VERIFICATION_CHECK = '/v2/verification/check';
     
