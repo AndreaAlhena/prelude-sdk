@@ -7,6 +7,7 @@ use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Services\LookupService;
 use Prelude\SDK\Services\TransactionalService;
 use Prelude\SDK\Services\VerificationService;
+use Prelude\SDK\Services\WatchService;
 
 /**
  * Main Prelude SDK Client
@@ -23,6 +24,7 @@ class PreludeClient
     private ?LookupService $_lookupService = null;
     private ?TransactionalService $_transactionalService = null;
     private ?VerificationService $_verificationService = null;
+    private ?WatchService $_watchService = null;
     
     /**
      * Create a new Prelude client instance
@@ -82,6 +84,20 @@ class PreludeClient
         
         return $this->_verificationService;
     }
+
+    /**
+     * Get Watch service instance
+     * 
+     * @return WatchService
+     */
+    public function watch(): WatchService
+    {
+        if ($this->_watchService === null) {
+            $this->_watchService = new WatchService($this->_httpClient);
+        }
+        
+        return $this->_watchService;
+    }
     
     /**
      * Get the API key
@@ -117,5 +133,6 @@ class PreludeClient
         $this->_lookupService = null;
         $this->_transactionalService = null;
         $this->_verificationService = null;
+        $this->_watchService = null;
     }
 }
