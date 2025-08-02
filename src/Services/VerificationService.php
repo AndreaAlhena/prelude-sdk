@@ -80,7 +80,7 @@ class VerificationService
             $target->toArray()
         );
 
-        $response = $this->httpClient->post(Config::ENDPOINT_VERIFICATION_VERIFY, $data);
+        $response = $this->httpClient->post(Config::ENDPOINT_VERIFICATION_CHECK, $data);
 
         return new VerificationResult($response);
     }
