@@ -83,36 +83,6 @@ final class VerificationService
         return new VerificationResult($response);
     }
 
-
-
-    /**
-     * Get the status of a verification
-     * 
-     * @param string $verificationId The verification ID
-     * @return Verification
-     * @throws PreludeException
-     */
-    public function getVerificationStatus(string $verificationId): Verification
-    {
-        $response = $this->_httpClient->get(Config::ENDPOINT_VERIFICATION . '/' . $verificationId);
-
-        return new Verification($response);
-    }
-
-    /**
-     * Cancel a pending verification
-     * 
-     * @param string $verificationId The verification ID to cancel
-     * @return bool
-     * @throws PreludeException
-     */
-    public function cancelVerification(string $verificationId): bool
-    {
-        $response = $this->_httpClient->delete(Config::ENDPOINT_VERIFICATION . '/' . $verificationId);
-
-        return $response['success'] ?? false;
-    }
-
     /**
      * Resend an OTP for an existing verification
      * 
