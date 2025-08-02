@@ -7,7 +7,6 @@ use Prelude\SDK\ValueObjects\Transactional\Options;
 use Prelude\SDK\Config\Config;
 use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Exceptions\ApiException;
-use PHPUnit\Framework\MockObject\MockObject;
 
 describe('TransactionalService', function () {
 
@@ -370,6 +369,106 @@ describe('TransactionalService', function () {
         });
     });
     
+    describe('authorization', function () {
+        it('throws ApiException when authorization header is missing (400 response)', function () {
+            // Arrange
+            $httpClientMock = test()->createMock(HttpClient::class);
+            $service = new TransactionalService($httpClientMock);
+            
+            $to = '+30123456789';
+            $templateId = 'template_01jd1xq0cffycayqtdkdbv4d61';
+            
+            $expectedRequestData = [
+                'to' => $to,
+                'template_id' => $templateId
+            ];
+            
+            // Create an ApiException with the specific error structure from the API
+            $apiException = new ApiException(
+                'Authorization header is missing or invalid.',
+                400,
+                null,
+                [
+                    'code' => 'unauthorized',
+                    'message' => 'Authorization header is missing or invalid.',
+                    'type' => 'bad_request',
+                    'request_id' => '3d19215e-2991-4a05-a41a-527314e6ff6a'
+                ]
+            );
+            
+            $httpClientMock
+                ->expects(test()->once())
+                ->method('post')
+                ->with(Config::ENDPOINT_TRANSACTIONAL, $expectedRequestData)
+                ->willThrowException($apiException);
+            
+            // Act & Assert
+            try {
+                $service->send($to, $templateId);
+                expect(false)->toBeTrue('Expected ApiException to be thrown');
+            } catch (ApiException $e) {
+                expect($e->getMessage())->toBe('Authorization header is missing or invalid.');
+                expect($e->getCode())->toBe(400);
+                expect($e->getResponseData())->toBe([
+                    'code' => 'unauthorized',
+                    'message' => 'Authorization header is missing or invalid.',
+                    'type' => 'bad_request',
+                    'request_id' => '3d19215e-2991-4a05-a41a-527314e6ff6a'
+                ]);
+                expect($e->isClientError())->toBeTrue();
+            }
+        });
+
+        it('throws ApiException when authorization token is invalid (400 response)', function () {
+            // Arrange
+            $httpClientMock = test()->createMock(HttpClient::class);
+            $service = new TransactionalService($httpClientMock);
+            
+            $to = '+30123456789';
+            $templateId = 'template_01jd1xq0cffycayqtdkdbv4d61';
+            
+            $expectedRequestData = [
+                'to' => $to,
+                'template_id' => $templateId
+            ];
+            
+            // Create an ApiException with the specific error structure from the API
+            $apiException = new ApiException(
+                'Invalid authorization token provided.',
+                400,
+                null,
+                [
+                    'code' => 'invalid_token',
+                    'message' => 'Invalid authorization token provided.',
+                    'type' => 'bad_request',
+                    'request_id' => '3d19215e-2991-4a05-a41a-527314e6ff6a'
+                ]
+            );
+            
+            $httpClientMock
+                ->expects(test()->once())
+                ->method('post')
+                ->with(Config::ENDPOINT_TRANSACTIONAL, $expectedRequestData)
+                ->willThrowException($apiException);
+            
+            // Act & Assert
+            try {
+                $service->send($to, $templateId);
+                expect(false)->toBeTrue('Expected ApiException to be thrown');
+            } catch (ApiException $e) {
+                expect($e->getMessage())->toBe('Invalid authorization token provided.');
+                expect($e->getCode())->toBe(400);
+                expect($e->getResponseData())->toBe([
+                    'code' => 'invalid_token',
+                    'message' => 'Invalid authorization token provided.',
+                    'type' => 'bad_request',
+                    'request_id' => '3d19215e-2991-4a05-a41a-527314e6ff6a'
+                ]);
+                expect($e->isClientError())->toBeTrue();
+            }
+        });
+    });
+
     describe('constructor', function () {
         it('can be instantiated with HttpClient', function () {
              // Arrange
