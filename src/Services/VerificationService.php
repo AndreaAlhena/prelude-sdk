@@ -7,9 +7,9 @@ use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Models\Verification;
 use Prelude\SDK\Models\VerificationResult;
-use Prelude\SDK\ValueObjects\Verify\Metadata;
+use Prelude\SDK\ValueObjects\Shared\Metadata;
+use Prelude\SDK\ValueObjects\Shared\Signals;
 use Prelude\SDK\ValueObjects\Verify\Options;
-use Prelude\SDK\ValueObjects\Verify\Signals;
 use Prelude\SDK\ValueObjects\Verify\Target;
 
 /**
