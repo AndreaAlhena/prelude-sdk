@@ -4,10 +4,12 @@ namespace Prelude\SDK\Services;
 
 use Prelude\SDK\Config\Config;
 use Prelude\SDK\Http\HttpClient;
+use Prelude\SDK\Models\DispatchResponse;
 use Prelude\SDK\Models\PredictResponse;
 use Prelude\SDK\ValueObjects\Shared\Metadata;
 use Prelude\SDK\ValueObjects\Shared\Signals;
 use Prelude\SDK\ValueObjects\Shared\Target;
+use Prelude\SDK\ValueObjects\Watch\Event;
 use Prelude\SDK\ValueObjects\Watch\Feedback;
 
 class WatchService
@@ -64,5 +66,22 @@ class WatchService
         ];
 
         return $this->_httpClient->post(Config::ENDPOINT_WATCH_FEEDBACK, $requestData);
+    }
+
+    /**
+     * Dispatch events to the Watch API
+     *
+     * @param Event[] $events Array of event objects
+     * @return DispatchResponse
+     */
+    public function dispatchEvents(array $events): DispatchResponse
+    {
+        $requestData = [
+            'events' => array_map(fn(Event $event) => $event->toArray(), $events)
+        ];
+
+        $response = $this->_httpClient->post(Config::ENDPOINT_WATCH_EVENT, $requestData);
+
+        return DispatchResponse::fromArray($response);
     }
 }
