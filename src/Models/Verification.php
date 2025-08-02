@@ -6,8 +6,8 @@ use Prelude\SDK\Enums\Channel;
 use Prelude\SDK\Enums\VerificationStatus;
 use Prelude\SDK\Enums\VerificationMethod;
 use Prelude\SDK\Enums\VerificationReason;
-use Prelude\SDK\ValueObjects\Metadata;
-use Prelude\SDK\ValueObjects\Silent;
+use Prelude\SDK\ValueObjects\Verify\Metadata;
+use Prelude\SDK\ValueObjects\Verify\Silent;
 
 /**
  * Verification model
