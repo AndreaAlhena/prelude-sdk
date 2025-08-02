@@ -1,12 +1,18 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Verify;
+namespace Prelude\SDK\ValueObjects\Shared;
 
 class Metadata
 {
     public function __construct(
-        protected ?string $_correlationId = null
+        private ?string $_correlationId = null
     ) {
+        //
+    }
+
+    public function getCorrelationId(): ?string
+    {
+        return $this->_correlationId;
     }
 
     public function toArray(): array
