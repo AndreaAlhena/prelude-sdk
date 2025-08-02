@@ -30,12 +30,12 @@ use Prelude\SDK\Exceptions\PreludeException;
 $client = new PreludeClient('your-api-key');
 
 try {
-    // Send an OTP
-    $verification = $client->verification()->sendOtp('+1234567890');
+    // Create a verification
+    $verification = $client->verification()->create('+1234567890');
     echo "Verification ID: " . $verification->getId() . "\n";
     
-    // Verify the OTP (user provides the code)
-    $result = $client->verification()->verifyOtp($verification->getId(), '123456');
+    // Check the OTP (user provides the code)
+    $result = $client->verification()->check($verification->getId(), '123456');
     
     if ($result->isValid()) {
         echo "Phone number verified successfully!\n";
@@ -66,17 +66,28 @@ $client = new PreludeClient('your-api-key', 'https://custom-api.prelude.com');
 
 The Verification service provides OTP verification functionality.
 
-### Send OTP
+### Create Verification
 
 ```php
-// Basic OTP send
-$verification = $client->verification()->sendOtp('+1234567890');
+use Prelude\SDK\Enums\TargetType;
+
+// Basic phone number verification
+$verification = $client->verification()->create('+1234567890', TargetType::PHONE_NUMBER);
+
+// Email verification
+$verification = $client->verification()->create('user@example.com', TargetType::EMAIL_ADDRESS);
 
 // With additional options
-$verification = $client->verification()->sendOtp('+1234567890', [
-    'template' => 'custom_template',
-    'expiry_minutes' => 10,
-    'code_length' => 6
+$verification = $client->verification()->create('+1234567890', TargetType::PHONE_NUMBER, [
+    'options' => [
+        'template' => 'custom_template',
+        'expiry_minutes' => 10,
+        'code_length' => 6
+    ],
+    'metadata' => [
+        'user_id' => '12345',
+        'source' => 'mobile_app'
+    ]
 ]);
 
 echo "Verification ID: " . $verification->getId();
@@ -84,10 +95,10 @@ echo "Status: " . $verification->getStatus();
 echo "Expires at: " . $verification->getExpiresAt();
 ```
 
-### Verify OTP
+### Check Verification
 
 ```php
-$result = $client->verification()->verifyOtp($verificationId, $userProvidedCode);
+$result = $client->verification()->check($verificationId, $userProvidedCode);
 
 if ($result->isValid()) {
     echo "Verification successful!";
@@ -95,10 +106,10 @@ if ($result->isValid()) {
     echo "Verification failed: " . $result->getMessage();
     
     // Check specific failure reasons
-    if ($result->isExpired()) {
-        echo "The code has expired";
-    } elseif ($result->isTooManyAttempts()) {
-        echo "Too many attempts made";
+    if ($result->getStatus() === 'blocked') {
+        echo "The verification has been blocked";
+    } elseif ($result->getStatus() === 'retry') {
+        echo "Please retry the verification";
     }
 }
 ```
@@ -111,13 +122,15 @@ $verification = $client->verification()->getVerificationStatus($verificationId);
 echo "Status: " . $verification->getStatus();
 echo "Attempts remaining: " . $verification->getAttemptsRemaining();
 
-// Check status with helper methods
-if ($verification->isPending()) {
-    echo "Verification is still pending";
-} elseif ($verification->isVerified()) {
-    echo "Verification completed";
-} elseif ($verification->isExpired()) {
-    echo "Verification expired";
+// Check status with enum values
+use Prelude\SDK\Enums\VerificationStatus;
+
+if ($verification->getStatus() === VerificationStatus::SUCCESS->value) {
+    echo "Verification completed successfully";
+} elseif ($verification->getStatus() === VerificationStatus::BLOCKED->value) {
+    echo "Verification has been blocked";
+} elseif ($verification->getStatus() === VerificationStatus::RETRY->value) {
+    echo "Verification needs to be retried";
 }
 ```
 
@@ -146,7 +159,7 @@ use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Exceptions\ApiException;
 
 try {
-    $verification = $client->verification()->sendOtp('+1234567890');
+    $verification = $client->verification()->create('+1234567890');
 } catch (ApiException $e) {
     // API-specific errors (4xx, 5xx responses)
     echo "API Error: " . $e->getMessage();
@@ -177,7 +190,7 @@ try {
 Represents a verification request:
 
 ```php
-$verification = $client->verification()->sendOtp('+1234567890');
+$verification = $client->verification()->create('+1234567890');
 
 // Properties
 $verification->getId();                 // string
@@ -187,11 +200,11 @@ $verification->getCreatedAt();          // string|null
 $verification->getExpiresAt();          // string|null
 $verification->getAttemptsRemaining();  // int|null
 
-// Status checks
-$verification->isPending();             // bool
-$verification->isVerified();            // bool
-$verification->isExpired();             // bool
-$verification->isCancelled();           // bool
+// Status checks (use VerificationStatus enum)
+// $verification->getStatus() returns one of:
+// - VerificationStatus::SUCCESS->value
+// - VerificationStatus::BLOCKED->value  
+// - VerificationStatus::RETRY->value
 
 // Data access
 $verification->toArray();               // array
@@ -203,7 +216,7 @@ $verification->getRawData();            // array
 Represents the result of an OTP verification:
 
 ```php
-$result = $client->verification()->verifyOtp($verificationId, $code);
+$result = $client->verification()->check($verificationId, $code);
 
 // Properties
 $result->getVerificationId();           // string
@@ -212,11 +225,11 @@ $result->getStatus();                   // string
 $result->getVerifiedAt();               // string|null
 $result->getMessage();                  // string|null
 
-// Status checks
-$result->isCodeCorrect();               // bool
-$result->isAlreadyVerified();           // bool
-$result->isExpired();                   // bool
-$result->isTooManyAttempts();           // bool
+// Status checks (use VerificationStatus enum)
+// $result->getStatus() returns one of:
+// - VerificationStatus::SUCCESS->value (verification successful)
+// - VerificationStatus::BLOCKED->value (verification blocked)
+// - VerificationStatus::RETRY->value (verification can be retried)
 
 // Data access
 $result->toArray();                     // array
