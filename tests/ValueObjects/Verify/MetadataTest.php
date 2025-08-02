@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Metadata;
+use Prelude\SDK\ValueObjects\Verify\Metadata;
 
 describe('Metadata', function () {
     it('can be instantiated with correlation ID', function () {

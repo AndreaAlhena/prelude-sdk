@@ -5,7 +5,7 @@ namespace Prelude\SDK\ValueObjects\Transactional;
 /**
  * Transactional Options value object
  */
-class TransactionalOptions
+class Options
 {
     private string $_callbackUrl;
     private string $_correlationId;
