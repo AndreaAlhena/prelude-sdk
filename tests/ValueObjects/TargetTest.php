@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Target;
+use Prelude\SDK\ValueObjects\Verify\Target;
 use Prelude\SDK\Enums\TargetType;
 
 describe('Target', function () {

@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Signals;
+use Prelude\SDK\ValueObjects\Verify\Signals;
 use Prelude\SDK\Enums\SignalDevicePlatform;
 
 describe('Signals', function () {

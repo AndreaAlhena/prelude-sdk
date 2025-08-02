@@ -1,7 +1,7 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Options;
-use Prelude\SDK\ValueObjects\AppRealm;
+use Prelude\SDK\ValueObjects\Verify\Options;
+use Prelude\SDK\ValueObjects\Verify\AppRealm;
 use Prelude\SDK\Enums\OptionsMethod;
 use Prelude\SDK\Enums\OptionsLocale;
 use Prelude\SDK\Enums\AppRealmPlatform;
