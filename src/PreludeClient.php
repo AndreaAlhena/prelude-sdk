@@ -2,10 +2,11 @@
 
 namespace Prelude\SDK;
 
+use Prelude\SDK\Exceptions\PreludeException;
+use Prelude\SDK\Http\HttpClient;
+use Prelude\SDK\Services\LookupService;
 use Prelude\SDK\Services\TransactionalService;
 use Prelude\SDK\Services\VerificationService;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Exceptions\PreludeException;
 
 /**
  * Main Prelude SDK Client
@@ -19,6 +20,7 @@ class PreludeClient
     private HttpClient $_httpClient;
     
     // Service instances
+    private ?LookupService $_lookupService = null;
     private ?TransactionalService $_transactionalService = null;
     private ?VerificationService $_verificationService = null;
     
@@ -39,6 +41,20 @@ class PreludeClient
         $this->_httpClient = new HttpClient($this->_apiKey, $this->_baseUrl);
     }
     
+    /**
+     * Get Lookup service instance
+     * 
+     * @return LookupService
+     */
+    public function lookup(): LookupService
+    {
+        if ($this->_lookupService === null) {
+            $this->_lookupService = new LookupService($this->_httpClient);
+        }
+        
+        return $this->_lookupService;
+    }
+
     /**
      * Get Transactional service instance
      * 
@@ -98,6 +114,7 @@ class PreludeClient
         $this->_httpClient = $httpClient;
         
         // Reset service instances to use new HTTP client
+        $this->_lookupService = null;
         $this->_transactionalService = null;
         $this->_verificationService = null;
     }
