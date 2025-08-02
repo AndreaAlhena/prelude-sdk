@@ -15,18 +15,16 @@ use Prelude\SDK\ValueObjects\Verify\Target;
 /**
  * Verification Service for OTP verification
  */
-class VerificationService
+final class VerificationService
 {
-    private HttpClient $httpClient;
-
     /**
      * Create a new Verification service instance
      * 
      * @param HttpClient $httpClient
      */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(private HttpClient $_httpClient)
     {
-        $this->httpClient = $httpClient;
+        //
     }
 
     /**
@@ -60,7 +58,7 @@ class VerificationService
             $data['dispatch_id'] = $dispatchId;
         }
 
-        $response = $this->httpClient->post(Config::ENDPOINT_VERIFICATION, $data);
+        $response = $this->_httpClient->post(Config::ENDPOINT_VERIFICATION, $data);
 
         return new Verification($response);
     }
@@ -80,7 +78,7 @@ class VerificationService
             $target->toArray()
         );
 
-        $response = $this->httpClient->post(Config::ENDPOINT_VERIFICATION_CHECK, $data);
+        $response = $this->_httpClient->post(Config::ENDPOINT_VERIFICATION_CHECK, $data);
 
         return new VerificationResult($response);
     }
@@ -96,7 +94,7 @@ class VerificationService
      */
     public function getVerificationStatus(string $verificationId): Verification
     {
-        $response = $this->httpClient->get(Config::ENDPOINT_VERIFICATION . '/' . $verificationId);
+        $response = $this->_httpClient->get(Config::ENDPOINT_VERIFICATION . '/' . $verificationId);
 
         return new Verification($response);
     }
@@ -110,7 +108,7 @@ class VerificationService
      */
     public function cancelVerification(string $verificationId): bool
     {
-        $response = $this->httpClient->delete(Config::ENDPOINT_VERIFICATION . '/' . $verificationId);
+        $response = $this->_httpClient->delete(Config::ENDPOINT_VERIFICATION . '/' . $verificationId);
 
         return $response['success'] ?? false;
     }
@@ -124,7 +122,7 @@ class VerificationService
      */
     public function resendOtp(string $verificationId): Verification
     {
-        $response = $this->httpClient->post(Config::ENDPOINT_VERIFICATION . '/' . $verificationId . '/resend');
+        $response = $this->_httpClient->post(Config::ENDPOINT_VERIFICATION . '/' . $verificationId . '/resend');
 
         return new Verification($response);
     }
