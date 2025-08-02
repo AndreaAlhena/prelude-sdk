@@ -1,0 +1,40 @@
+# Codecov configuration
+codecov:
+  branch: main  # Set main as the default branch
+  strict_yaml_branch: main  # Always use YAML from main branch
+  max_report_age: '12h'  # Accept reports up to 12 hours old
+
+coverage:
+  precision: 2  # Show coverage with 2 decimal places
+  round: down   # Round coverage down
+  range: "70...100"  # Coverage range (70% minimum)
+  
+  status:
+    project:
+      default:
+        target: 80%  # Require 80% coverage
+        threshold: 1%  # Allow 1% drop
+        if_not_found: success  # Don't fail if no coverage found
+    patch:
+      default:
+        target: 80%  # Require 80% coverage for new code
+        threshold: 1%  # Allow 1% drop
+        if_not_found: success  # Don't fail if no coverage found
+
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true
+
+ignore:
+  - "examples/**/*"
+  - "vendor/**/*"
+  - "tests/**/*"
+  - "*.md"
+  - "*.yml"
+  - "*.yaml"
+  - "*.json"
+  - "Dockerfile"
+  - "docker-compose.yml"
