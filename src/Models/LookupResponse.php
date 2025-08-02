@@ -11,30 +11,17 @@ use Prelude\SDK\ValueObjects\Lookup\NetworkInfo;
  */
 class LookupResponse
 {
-    private string $_callerName;
-    private string $_countryCode;
-    private array $_flags;
-    private LineType $_lineType;
-    private NetworkInfo $_networkInfo;
-    private NetworkInfo $_originalNetworkInfo;
-    private string $_phoneNumber;
-
     public function __construct(
-        string $phoneNumber,
-        string $countryCode,
-        NetworkInfo $networkInfo,
-        NetworkInfo $originalNetworkInfo,
-        array $flags,
-        string $callerName,
-        LineType $lineType
+        private string $_phoneNumber,
+        private string $_countryCode,
+        private NetworkInfo $_networkInfo,
+        private NetworkInfo $_originalNetworkInfo,
+        /** @var Flag[] */
+        private array $_flags,
+        private string $_callerName,
+        private LineType $_lineType
     ) {
-        $this->_phoneNumber = $phoneNumber;
-        $this->_countryCode = $countryCode;
-        $this->_networkInfo = $networkInfo;
-        $this->_originalNetworkInfo = $originalNetworkInfo;
-        $this->_flags = $flags;
-        $this->_callerName = $callerName;
-        $this->_lineType = $lineType;
+        //
     }
 
     public static function fromArray(array $data): self
@@ -45,13 +32,13 @@ class LookupResponse
         );
 
         return new self(
-            phoneNumber: $data['phone_number'],
-            countryCode: $data['country_code'],
-            networkInfo: NetworkInfo::fromArray($data['network_info']),
-            originalNetworkInfo: NetworkInfo::fromArray($data['original_network_info']),
-            flags: $flags,
-            callerName: $data['caller_name'],
-            lineType: LineType::from($data['line_type'])
+            _phoneNumber: $data['phone_number'],
+            _countryCode: $data['country_code'],
+            _networkInfo: NetworkInfo::fromArray($data['network_info']),
+            _originalNetworkInfo: NetworkInfo::fromArray($data['original_network_info']),
+            _flags: $flags,
+            _callerName: $data['caller_name'],
+            _lineType: LineType::from($data['line_type'])
         );
     }
 

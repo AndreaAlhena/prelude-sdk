@@ -11,13 +11,13 @@ test('LookupResponse → it can be instantiated with all parameters', function (
     $flags = [Flag::PORTED];
     
     $response = new LookupResponse(
-        phoneNumber: '+33123456789',
-        countryCode: 'FR',
-        networkInfo: $networkInfo,
-        originalNetworkInfo: $originalNetworkInfo,
-        flags: $flags,
-        callerName: 'FINN',
-        lineType: LineType::MOBILE
+        _phoneNumber: '+33123456789',
+        _countryCode: 'FR',
+        _networkInfo: $networkInfo,
+        _originalNetworkInfo: $originalNetworkInfo,
+        _flags: $flags,
+        _callerName: 'FINN',
+        _lineType: LineType::MOBILE
     );
     
     expect($response->getPhoneNumber())->toBe('+33123456789');
@@ -66,13 +66,13 @@ test('LookupResponse → it converts to correct array format', function () {
     $flags = [Flag::PORTED, Flag::TEMPORARY];
     
     $response = new LookupResponse(
-        phoneNumber: '+33123456789',
-        countryCode: 'FR',
-        networkInfo: $networkInfo,
-        originalNetworkInfo: $originalNetworkInfo,
-        flags: $flags,
-        callerName: 'FINN',
-        lineType: LineType::MOBILE
+        _phoneNumber: '+33123456789',
+        _countryCode: 'FR',
+        _networkInfo: $networkInfo,
+        _originalNetworkInfo: $originalNetworkInfo,
+        _flags: $flags,
+        _callerName: 'FINN',
+        _lineType: LineType::MOBILE
     );
     
     $array = $response->toArray();
@@ -126,13 +126,13 @@ test('LookupResponse → it handles different line types', function () {
     $originalNetworkInfo = new NetworkInfo('Orange', '208', '01');
     
     $response = new LookupResponse(
-        phoneNumber: '+33123456789',
-        countryCode: 'FR',
-        networkInfo: $networkInfo,
-        originalNetworkInfo: $originalNetworkInfo,
-        flags: [],
-        callerName: 'FINN',
-        lineType: LineType::FIXED_LINE
+        _phoneNumber: '+33123456789',
+        _countryCode: 'FR',
+        _networkInfo: $networkInfo,
+        _originalNetworkInfo: $originalNetworkInfo,
+        _flags: [],
+        _callerName: 'FINN',
+        _lineType: LineType::FIXED_LINE
     );
     
     expect($response->getLineType())->toBe(LineType::FIXED_LINE);
