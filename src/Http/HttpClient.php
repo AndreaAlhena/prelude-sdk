@@ -14,9 +14,9 @@ use Exception;
  */
 class HttpClient
 {
-    private Client $client;
-    private string $apiKey;
-    private string $baseUrl;
+    private string $_apiKey;
+    private string $_baseUrl;
+    private Client $_client;
     
     /**
      * Create a new HTTP client instance
@@ -26,10 +26,10 @@ class HttpClient
      */
     public function __construct(string $apiKey, string $baseUrl)
     {
-        $this->apiKey = $apiKey;
-        $this->baseUrl = $baseUrl;
+        $this->_apiKey = $apiKey;
+        $this->_baseUrl = $baseUrl;
         
-        $this->client = new Client([
+        $this->_client = new Client([
             'base_uri' => $baseUrl,
             'timeout' => 30,
             'headers' => [
@@ -49,16 +49,36 @@ class HttpClient
      * @return array
      * @throws PreludeException
      */
+    /**
+     * Make a DELETE request
+     * 
+     * @param string $endpoint
+     * @return array
+     * @throws PreludeException
+     */
+    public function delete(string $endpoint): array
+    {
+        try {
+            $response = $this->_client->delete($endpoint);
+            
+            return $this->_handleResponse($response);
+        } catch (GuzzleException $e) {
+            throw new ApiException('DELETE request failed: ' . $e->getMessage(), $e->getCode());
+        } catch (Exception $e) {
+            throw new PreludeException('DELETE request failed: ' . $e->getMessage(), $e->getCode(), $e);
+        }
+    }
+    
     public function get(string $endpoint, array $query = []): array
     {
         try {
-            $response = $this->client->get($endpoint, [
+            $response = $this->_client->get($endpoint, [
                 'query' => $query
             ]);
             
-            return $this->handleResponse($response);
+            return $this->_handleResponse($response);
         } catch (GuzzleException $e) {
-            throw new ApiException('GET request failed: ' . $e->getMessage(), $e->getCode(), $e->getPrevious());
+            throw new ApiException('GET request failed: ' . $e->getMessage(), $e->getCode());
         } catch (Exception $e) {
             throw new PreludeException('GET request failed: ' . $e->getMessage(), $e->getCode(), $e);
         }
@@ -75,13 +95,13 @@ class HttpClient
     public function post(string $endpoint, array $data = []): array
     {
         try {
-            $response = $this->client->post($endpoint, [
+            $response = $this->_client->post($endpoint, [
                 'json' => $data
             ]);
             
-            return $this->handleResponse($response);
+            return $this->_handleResponse($response);
         } catch (GuzzleException $e) {
-            throw new ApiException('POST request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new ApiException('POST request failed: ' . $e->getMessage(), $e->getCode());
         } catch (Exception $e) {
             throw new PreludeException('POST request failed: ' . $e->getMessage(), $e->getCode(), $e);
         }
@@ -98,35 +118,15 @@ class HttpClient
     public function put(string $endpoint, array $data = []): array
     {
         try {
-            $response = $this->client->put($endpoint, [
+            $response = $this->_client->put($endpoint, [
                 'json' => $data
             ]);
             
-            return $this->handleResponse($response);
+            return $this->_handleResponse($response);
         } catch (GuzzleException $e) {
-            throw new ApiException('PUT request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new ApiException('PUT request failed: ' . $e->getMessage(), $e->getCode());
         } catch (Exception $e) {
             throw new PreludeException('PUT request failed: ' . $e->getMessage(), $e->getCode(), $e);
-        }
-    }
-    
-    /**
-     * Make a DELETE request
-     * 
-     * @param string $endpoint
-     * @return array
-     * @throws PreludeException
-     */
-    public function delete(string $endpoint): array
-    {
-        try {
-            $response = $this->client->delete($endpoint);
-            
-            return $this->handleResponse($response);
-        } catch (GuzzleException $e) {
-            throw new ApiException('DELETE request failed: ' . $e->getMessage(), $e->getCode(), $e);
-        } catch (Exception $e) {
-            throw new PreludeException('DELETE request failed: ' . $e->getMessage(), $e->getCode(), $e);
         }
     }
     
@@ -137,7 +137,7 @@ class HttpClient
      * @return array
      * @throws ApiException
      */
-    private function handleResponse(ResponseInterface $response): array
+    private function _handleResponse(ResponseInterface $response): array
     {
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
