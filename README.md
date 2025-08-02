@@ -1,5 +1,8 @@
 # Prelude PHP SDK
 
+[![codecov](https://codecov.io/github/AndreaAlhena/prelude-sdk/graph/badge.svg?token=8D0QXLO08X)](https://codecov.io/github/AndreaAlhena/prelude-sdk)
+[![Made with Trae](https://img.shields.io/badge/Made%20with-Trae%20AI-blueviolet?style=for-the-badge)](https://trae.ai)
+
 A comprehensive PHP SDK for integrating with Prelude services, including OTP verification.
 
 ## Installation
