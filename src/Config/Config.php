@@ -16,6 +16,7 @@ class Config
     public const ENDPOINT_TRANSACTIONAL = '/v2/transactional';
     public const ENDPOINT_VERIFICATION = '/v2/verification';
     public const ENDPOINT_VERIFICATION_CHECK = '/v2/verification/check';
+    public const ENDPOINT_WATCH_EVENT = '/v2/watch/event';
     public const ENDPOINT_WATCH_FEEDBACK = '/v2/watch/feedback';
     public const ENDPOINT_WATCH_PREDICT = '/v2/watch/predict';
     
