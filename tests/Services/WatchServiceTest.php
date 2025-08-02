@@ -11,6 +11,7 @@ use Prelude\SDK\Services\WatchService;
 use Prelude\SDK\ValueObjects\Shared\Metadata;
 use Prelude\SDK\ValueObjects\Shared\Signals;
 use Prelude\SDK\ValueObjects\Shared\Target;
+use Prelude\SDK\ValueObjects\Watch\Feedback;
 
 describe('WatchService', function () {
     describe('predictOutcome method', function () {
@@ -479,6 +480,184 @@ describe('WatchService', function () {
             
             // Assert
             expect($service)->toBeInstanceOf(WatchService::class);
+        });
+    });
+
+    describe('sendFeedback', function () {
+        it('can send feedback successfully (200 response)', function () {
+            // Arrange
+            $httpClientMock = test()->createMock(HttpClient::class);
+            $service = new WatchService($httpClientMock);
+
+            $target = new Target('+30123456789', TargetType::PHONE_NUMBER);
+            $signals = new Signals(
+                '192.0.2.1',
+                '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
+                SignalDevicePlatform::IOS,
+                'iPhone17,2',
+                '18.0.1',
+                '1.2.34',
+                'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+                false
+            );
+            $metadata = new Metadata('test-correlation-id');
+            $dispatchId = '123e4567-e89b-12d3-a456-426614174000';
+
+            $feedback = new Feedback(
+                $target,
+                'verification.started',
+                $signals,
+                $dispatchId,
+                $metadata
+            );
+
+            $expectedRequestData = [
+                'feedbacks' => [
+                    [
+                        'target' => [
+                            'type' => 'phone_number',
+                            'value' => '+30123456789'
+                        ],
+                        'type' => 'verification.started',
+                        'signals' => [
+                            'ip' => '192.0.2.1',
+                            'device_id' => '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
+                            'device_platform' => 'ios',
+                            'device_model' => 'iPhone17,2',
+                            'os_version' => '18.0.1',
+                            'app_version' => '1.2.34',
+                            'user_agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+                            'is_trusted_user' => false
+                        ],
+                        'dispatch_id' => '123e4567-e89b-12d3-a456-426614174000',
+                        'metadata' => [
+                            'correlation_id' => 'test-correlation-id'
+                        ]
+                    ]
+                ]
+            ];
+
+            $expectedResponse = ['success' => true];
+
+            // Act
+            $httpClientMock
+                ->expects(test()->once())
+                ->method('post')
+                ->with(Config::ENDPOINT_WATCH_FEEDBACK, $expectedRequestData)
+                ->willReturn($expectedResponse);
+
+            $result = $service->sendFeedback([$feedback]);
+
+            // Assert
+            expect($result)->toBe($expectedResponse);
+        });
+
+        it('can send multiple feedbacks', function () {
+            // Arrange
+            $httpClientMock = test()->createMock(HttpClient::class);
+            $service = new WatchService($httpClientMock);
+
+            $target1 = new Target('+30123456789', TargetType::PHONE_NUMBER);
+            $target2 = new Target('+30987654321', TargetType::PHONE_NUMBER);
+            $signals = new Signals('192.0.2.1');
+
+            $feedback1 = new Feedback($target1, 'verification.started', $signals);
+            $feedback2 = new Feedback($target2, 'verification.completed', $signals);
+
+            $expectedRequestData = [
+                'feedbacks' => [
+                    [
+                        'target' => [
+                            'type' => 'phone_number',
+                            'value' => '+30123456789'
+                        ],
+                        'type' => 'verification.started',
+                        'signals' => [
+                            'ip' => '192.0.2.1'
+                        ]
+                    ],
+                    [
+                        'target' => [
+                            'type' => 'phone_number',
+                            'value' => '+30987654321'
+                        ],
+                        'type' => 'verification.completed',
+                        'signals' => [
+                            'ip' => '192.0.2.1'
+                        ]
+                    ]
+                ]
+            ];
+
+            $expectedResponse = ['success' => true];
+
+            // Act
+            $httpClientMock
+                ->expects(test()->once())
+                ->method('post')
+                ->with(Config::ENDPOINT_WATCH_FEEDBACK, $expectedRequestData)
+                ->willReturn($expectedResponse);
+
+            $result = $service->sendFeedback([$feedback1, $feedback2]);
+
+            // Assert
+            expect($result)->toBe($expectedResponse);
+        });
+
+        it('can send feedback without signals', function () {
+            // Arrange
+            $httpClientMock = test()->createMock(HttpClient::class);
+            $service = new WatchService($httpClientMock);
+
+            $target = new Target('+30123456789', TargetType::PHONE_NUMBER);
+            $feedback = new Feedback($target, 'verification.started');
+
+            $expectedRequestData = [
+                'feedbacks' => [
+                    [
+                        'target' => [
+                            'type' => 'phone_number',
+                            'value' => '+30123456789'
+                        ],
+                        'type' => 'verification.started'
+                    ]
+                ]
+            ];
+
+            $expectedResponse = ['success' => true];
+
+            // Act
+            $httpClientMock
+                ->expects(test()->once())
+                ->method('post')
+                ->with(Config::ENDPOINT_WATCH_FEEDBACK, $expectedRequestData)
+                ->willReturn($expectedResponse);
+
+            $result = $service->sendFeedback([$feedback]);
+
+            // Assert
+            expect($result)->toBe($expectedResponse);
+        });
+
+        it('handles empty feedback array', function () {
+            // Arrange
+            $httpClientMock = test()->createMock(HttpClient::class);
+            $service = new WatchService($httpClientMock);
+
+            $expectedRequestData = ['feedbacks' => []];
+            $expectedResponse = ['success' => true];
+
+            // Act
+            $httpClientMock
+                ->expects(test()->once())
+                ->method('post')
+                ->with(Config::ENDPOINT_WATCH_FEEDBACK, $expectedRequestData)
+                ->willReturn($expectedResponse);
+
+            $result = $service->sendFeedback([]);
+
+            // Assert
+            expect($result)->toBe($expectedResponse);
         });
     });
 });

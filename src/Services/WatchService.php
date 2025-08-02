@@ -8,6 +8,7 @@ use Prelude\SDK\Models\PredictResponse;
 use Prelude\SDK\ValueObjects\Shared\Metadata;
 use Prelude\SDK\ValueObjects\Shared\Signals;
 use Prelude\SDK\ValueObjects\Shared\Target;
+use Prelude\SDK\ValueObjects\Watch\Feedback;
 
 class WatchService
 {
@@ -48,5 +49,20 @@ class WatchService
         $response = $this->_httpClient->post(Config::ENDPOINT_WATCH_PREDICT, $requestData);
 
         return PredictResponse::fromArray($response);
+    }
+
+    /**
+     * Send feedbacks about verifications
+     *
+     * @param Feedback[] $feedbacks Array of feedback objects
+     * @return array
+     */
+    public function sendFeedback(array $feedbacks): array
+    {
+        $requestData = [
+            'feedbacks' => array_map(fn(Feedback $feedback) => $feedback->toArray(), $feedbacks)
+        ];
+
+        return $this->_httpClient->post(Config::ENDPOINT_WATCH_FEEDBACK, $requestData);
     }
 }
