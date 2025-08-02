@@ -1,9 +1,10 @@
 {
     "name": "prelude/sdk",
+    "version": "1.0.0",
     "description": "PHP SDK for Prelude services including OTP SMS verification",
     "type": "library",
     "keywords": ["prelude", "sms", "otp", "verification", "sdk"],
-    "homepage": "https://github.com/prelude/php-sdk",
+    "homepage": "https://github.com/AndreaAlhena/prelude-sdk",
     "license": "MIT",
     "authors": [
         {
