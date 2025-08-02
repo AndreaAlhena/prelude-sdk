@@ -37,10 +37,10 @@ try {
     // Check the OTP (user provides the code)
     $result = $client->verification()->check($verification->getId(), '123456');
     
-    if ($result->isValid()) {
+    if ($result->isSuccess()) {
         echo "Phone number verified successfully!\n";
     } else {
-        echo "Verification failed: " . $result->getMessage() . "\n";
+        echo "Verification failed. Status: " . $result->getStatus()->value . "\n";
     }
     
 } catch (PreludeException $e) {
@@ -100,15 +100,15 @@ echo "Expires at: " . $verification->getExpiresAt();
 ```php
 $result = $client->verification()->check($verificationId, $userProvidedCode);
 
-if ($result->isValid()) {
+if ($result->isSuccess()) {
     echo "Verification successful!";
 } else {
-    echo "Verification failed: " . $result->getMessage();
+    echo "Verification failed. Status: " . $result->getStatus()->value;
     
     // Check specific failure reasons
-    if ($result->getStatus() === 'blocked') {
+    if ($result->isBlocked()) {
         echo "The verification has been blocked";
-    } elseif ($result->getStatus() === 'retry') {
+    } elseif ($result->isRetry()) {
         echo "Please retry the verification";
     }
 }
@@ -267,17 +267,19 @@ Represents the result of an OTP verification:
 $result = $client->verification()->check($verificationId, $code);
 
 // Properties
-$result->getVerificationId();           // string
-$result->isValid();                     // bool
-$result->getStatus();                   // string
-$result->getVerifiedAt();               // string|null
-$result->getMessage();                  // string|null
+$result->getId();                       // string
+$result->getStatus();                   // VerificationStatus enum
+$result->getMethod();                   // string
+$result->getReason();                   // string|null
+$result->getRequestId();                // string|null
+$result->getMetadata();                 // array|null
+$result->getChannels();                 // array|null
+$result->getSilent();                   // bool|null
 
-// Status checks (use VerificationStatus enum)
-// $result->getStatus() returns one of:
-// - VerificationStatus::SUCCESS->value (verification successful)
-// - VerificationStatus::BLOCKED->value (verification blocked)
-// - VerificationStatus::RETRY->value (verification can be retried)
+// Status check methods
+$result->isSuccess();                   // bool - verification successful
+$result->isBlocked();                   // bool - verification blocked
+$result->isRetry();                     // bool - verification can be retried
 
 // Data access
 $result->toArray();                     // array
