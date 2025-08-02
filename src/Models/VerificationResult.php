@@ -2,31 +2,57 @@
 
 namespace Prelude\SDK\Models;
 
+use Prelude\SDK\Enums\Channel;
+use Prelude\SDK\Enums\VerificationMethod;
+use Prelude\SDK\Enums\VerificationReason;
+use Prelude\SDK\Enums\VerificationStatus;
+use Prelude\SDK\ValueObjects\Verify\Metadata;
+use Prelude\SDK\ValueObjects\Verify\Silent;
+
 /**
  * Verification Result model
  */
 class VerificationResult
 {
-    private string $verificationId;
-    private bool $valid;
-    private string $status;
-    private ?string $verifiedAt;
-    private ?string $message;
-    private array $rawData;
+    /**
+     * @var Channel[]
+     */
+    private array $_channels;
+    private string $_id;
+    private ?Metadata $_metadata;
+    private VerificationMethod $_method;
+    private ?VerificationReason $_reason;
+    private ?string $_requestId;
+    private ?Silent $_silent;
+    private VerificationStatus $_status;
+    private array $_rawData;
     
     /**
-     * Create a new SMS verification result instance
+     * Create a new verification result instance
      * 
      * @param array $data
      */
     public function __construct(array $data)
     {
-        $this->rawData = $data;
-        $this->verificationId = $data['verification_id'] ?? '';
-        $this->valid = $data['valid'] ?? false;
-        $this->status = $data['status'] ?? 'invalid';
-        $this->verifiedAt = $data['verified_at'] ?? null;
-        $this->message = $data['message'] ?? null;
+        $this->_rawData = $data;
+        $this->_id = $data['id'] ?? '';
+        $this->_status = VerificationStatus::from($data['status'] ?? 'retry');
+        $this->_method = VerificationMethod::from($data['method'] ?? 'message');
+        $this->_reason = isset($data['reason']) ? VerificationReason::from($data['reason']) : null;
+        $this->_channels = $data['channels'] ?? [];
+        $this->_silent = isset($data['silent']) ? Silent::fromArray($data['silent']) : null;
+        $this->_metadata = isset($data['metadata']) ? Metadata::fromArray($data['metadata']) : null;
+        $this->_requestId = $data['request_id'] ?? null;
+    }
+    
+    /**
+     * Get the channels
+     * 
+     * @return Channel[]
+     */
+    public function getChannels(): array
+    {
+        return $this->_channels;
     }
     
     /**
@@ -34,89 +60,99 @@ class VerificationResult
      * 
      * @return string
      */
-    public function getVerificationId(): string
+    public function getId(): string
     {
-        return $this->verificationId;
+        return $this->_id;
     }
     
     /**
-     * Check if the verification is valid
+     * Get the metadata
      * 
-     * @return bool
+     * @return Metadata|null
      */
-    public function isValid(): bool
+    public function getMetadata(): ?Metadata
     {
-        return $this->valid;
+        return $this->_metadata;
+    }
+    
+    /**
+     * Get the verification method
+     * 
+     * @return VerificationMethod
+     */
+    public function getMethod(): VerificationMethod
+    {
+        return $this->_method;
+    }
+    
+    /**
+     * Get the verification reason (only present when status is blocked)
+     * 
+     * @return VerificationReason|null
+     */
+    public function getReason(): ?VerificationReason
+    {
+        return $this->_reason;
+    }
+    
+    /**
+     * Get the request ID
+     * 
+     * @return string|null
+     */
+    public function getRequestId(): ?string
+    {
+        return $this->_requestId;
+    }
+    
+    /**
+     * Get the silent verification properties
+     * 
+     * @return Silent|null
+     */
+    public function getSilent(): ?Silent
+    {
+        return $this->_silent;
     }
     
     /**
      * Get the verification status
      * 
-     * @return string
+     * @return VerificationStatus
      */
-    public function getStatus(): string
+    public function getStatus(): VerificationStatus
     {
-        return $this->status;
+        return $this->_status;
     }
     
     /**
-     * Get the verification timestamp
-     * 
-     * @return string|null
-     */
-    public function getVerifiedAt(): ?string
-    {
-        return $this->verifiedAt;
-    }
-    
-    /**
-     * Get the verification message
-     * 
-     * @return string|null
-     */
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-    
-    /**
-     * Check if the code was correct but verification failed for other reasons
+     * Check if the verification was blocked
      * 
      * @return bool
      */
-    public function isCodeCorrect(): bool
+    public function isBlocked(): bool
     {
-        return $this->status === 'verified' || $this->status === 'already_verified';
+        return $this->_status === VerificationStatus::BLOCKED;
     }
     
     /**
-     * Check if the verification was already completed
+     * Check if the verification should be retried
      * 
      * @return bool
      */
-    public function isAlreadyVerified(): bool
+    public function isRetry(): bool
     {
-        return $this->status === 'already_verified';
+        return $this->_status === VerificationStatus::RETRY;
     }
     
     /**
-     * Check if the verification has expired
+     * Check if the verification was successful
      * 
      * @return bool
      */
-    public function isExpired(): bool
+    public function isSuccess(): bool
     {
-        return $this->status === 'expired';
-    }
-    
-    /**
-     * Check if too many attempts were made
-     * 
-     * @return bool
-     */
-    public function isTooManyAttempts(): bool
-    {
-        return $this->status === 'too_many_attempts';
+        return $this->_status === VerificationStatus::SUCCESS;
     }
     
     /**
@@ -126,7 +162,7 @@ class VerificationResult
      */
     public function getRawData(): array
     {
-        return $this->rawData;
+        return $this->_rawData;
     }
     
     /**
@@ -137,11 +173,14 @@ class VerificationResult
     public function toArray(): array
     {
         return [
-            'verification_id' => $this->verificationId,
-            'valid' => $this->valid,
-            'status' => $this->status,
-            'verified_at' => $this->verifiedAt,
-            'message' => $this->message
+            'id' => $this->_id,
+            'status' => $this->_status->value,
+            'method' => $this->_method->value,
+            'reason' => $this->_reason?->value,
+            'channels' => $this->_channels,
+            'silent' => $this->_silent?->toArray(),
+            'metadata' => $this->_metadata?->toArray(),
+            'request_id' => $this->_requestId
         ];
     }
 }
