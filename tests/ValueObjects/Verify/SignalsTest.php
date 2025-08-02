@@ -6,14 +6,14 @@ use Prelude\SDK\Enums\SignalDevicePlatform;
 describe('Signals', function () {
     it('can be instantiated with all parameters', function () {
         $signals = new Signals(
-            ip: '192.0.2.1',
-            deviceId: '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
-            devicePlatform: SignalDevicePlatform::IOS,
-            deviceModel: 'iPhone17,2',
-            osVersion: '18.0.1',
-            appVersion: '1.2.34',
-            userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
-            isTrustedUser: false
+            _ip: '192.0.2.1',
+            _deviceId: '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
+            _devicePlatform: SignalDevicePlatform::IOS,
+            _deviceModel: 'iPhone17,2',
+            _osVersion: '18.0.1',
+            _appVersion: '1.2.34',
+            _userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+            _isTrustedUser: false
         );
 
         expect($signals)->toBeInstanceOf(Signals::class);
@@ -27,14 +27,14 @@ describe('Signals', function () {
 
     it('converts to correct array format with all parameters', function () {
         $signals = new Signals(
-            ip: '192.0.2.1',
-            deviceId: '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
-            devicePlatform: SignalDevicePlatform::IOS,
-            deviceModel: 'iPhone17,2',
-            osVersion: '18.0.1',
-            appVersion: '1.2.34',
-            userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
-            isTrustedUser: false
+            _ip: '192.0.2.1',
+            _deviceId: '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
+            _devicePlatform: SignalDevicePlatform::IOS,
+            _deviceModel: 'iPhone17,2',
+            _osVersion: '18.0.1',
+            _appVersion: '1.2.34',
+            _userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+            _isTrustedUser: false
         );
 
         $result = $signals->toArray();
@@ -61,9 +61,9 @@ describe('Signals', function () {
 
     it('converts to partial array when some parameters provided', function () {
         $signals = new Signals(
-            ip: '10.0.0.1',
-            devicePlatform: SignalDevicePlatform::ANDROID,
-            isTrustedUser: true
+            _ip: '10.0.0.1',
+            _devicePlatform: SignalDevicePlatform::ANDROID,
+            _isTrustedUser: true
         );
 
         $result = $signals->toArray();
@@ -85,7 +85,7 @@ describe('Signals', function () {
         ];
 
         foreach ($testCases as $testCase) {
-            $signals = new Signals(devicePlatform: $testCase['platform']);
+            $signals = new Signals(_devicePlatform: $testCase['platform']);
             $result = $signals->toArray();
 
             expect($result)->toBe(['device_platform' => $testCase['expected']]);
@@ -93,8 +93,8 @@ describe('Signals', function () {
     });
 
     it('handles boolean values correctly', function () {
-        $trustedSignals = new Signals(isTrustedUser: true);
-        $untrustedSignals = new Signals(isTrustedUser: false);
+        $trustedSignals = new Signals(_isTrustedUser: true);
+        $untrustedSignals = new Signals(_isTrustedUser: false);
 
         expect($trustedSignals->toArray())->toBe(['is_trusted_user' => true]);
         expect($untrustedSignals->toArray())->toBe(['is_trusted_user' => false]);
@@ -102,8 +102,8 @@ describe('Signals', function () {
 
     it('handles special characters in string values', function () {
         $signals = new Signals(
-            deviceModel: 'iPhone 15 Pro Max (256GB)',
-            userAgent: 'Mozilla/5.0 (compatible; "Special" & <Test>)'
+            _deviceModel: 'iPhone 15 Pro Max (256GB)',
+            _userAgent: 'Mozilla/5.0 (compatible; "Special" & <Test>)'
         );
 
         $result = $signals->toArray();

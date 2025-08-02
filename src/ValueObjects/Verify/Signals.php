@@ -7,14 +7,14 @@ use Prelude\SDK\Enums\SignalDevicePlatform;
 class Signals
 {
     public function __construct(
-        protected ?string $ip = null,
-        protected ?string $deviceId = null,
-        protected ?SignalDevicePlatform $devicePlatform = null,
-        protected ?string $deviceModel = null,
-        protected ?string $osVersion = null,
-        protected ?string $appVersion = null,
-        protected ?string $userAgent = null,
-        protected ?bool $isTrustedUser = null
+        protected ?string $_ip = null,
+        protected ?string $_deviceId = null,
+        protected ?SignalDevicePlatform $_devicePlatform = null,
+        protected ?string $_deviceModel = null,
+        protected ?string $_osVersion = null,
+        protected ?string $_appVersion = null,
+        protected ?string $_userAgent = null,
+        protected ?bool $_isTrustedUser = null
     ) {
     }
 
@@ -22,36 +22,36 @@ class Signals
     {
         $signals = [];
 
-        if ($this->ip !== null) {
-            $signals['ip'] = $this->ip;
+        if ($this->_ip !== null) {
+            $signals['ip'] = $this->_ip;
         }
 
-        if ($this->deviceId !== null) {
-            $signals['device_id'] = $this->deviceId;
+        if ($this->_deviceId !== null) {
+            $signals['device_id'] = $this->_deviceId;
         }
 
-        if ($this->devicePlatform !== null) {
-            $signals['device_platform'] = $this->devicePlatform->value;
+        if ($this->_devicePlatform !== null) {
+            $signals['device_platform'] = $this->_devicePlatform->value;
         }
 
-        if ($this->deviceModel !== null) {
-            $signals['device_model'] = $this->deviceModel;
+        if ($this->_deviceModel !== null) {
+            $signals['device_model'] = $this->_deviceModel;
         }
 
-        if ($this->osVersion !== null) {
-            $signals['os_version'] = $this->osVersion;
+        if ($this->_osVersion !== null) {
+            $signals['os_version'] = $this->_osVersion;
         }
 
-        if ($this->appVersion !== null) {
-            $signals['app_version'] = $this->appVersion;
+        if ($this->_appVersion !== null) {
+            $signals['app_version'] = $this->_appVersion;
         }
 
-        if ($this->userAgent !== null) {
-            $signals['user_agent'] = $this->userAgent;
+        if ($this->_userAgent !== null) {
+            $signals['user_agent'] = $this->_userAgent;
         }
 
-        if ($this->isTrustedUser !== null) {
-            $signals['is_trusted_user'] = $this->isTrustedUser;
+        if ($this->_isTrustedUser !== null) {
+            $signals['is_trusted_user'] = $this->_isTrustedUser;
         }
 
         return $signals;

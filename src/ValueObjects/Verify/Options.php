@@ -12,12 +12,12 @@ class Options
     public function __construct(
         private string $_templateId,
         private array $_variables = [],
-        private ?OptionsMethod $_method = null,
-        private ?OptionsLocale $_locale = null,
         private ?AppRealm $_appRealm = null,
+        private string $_callbackUrl = '',
         private int $_codeSize = 0,
         private string $_customCode = '',
-        private string $_callbackUrl = '',
+        private ?OptionsLocale $_locale = null,
+        private ?OptionsMethod $_method = null,
         private ?PreferredChannel $_preferredChannel = null
     ) {
         //

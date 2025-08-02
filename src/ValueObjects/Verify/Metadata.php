@@ -5,7 +5,7 @@ namespace Prelude\SDK\ValueObjects\Verify;
 class Metadata
 {
     public function __construct(
-        protected ?string $correlationId = null
+        protected ?string $_correlationId = null
     ) {
     }
 
@@ -13,8 +13,8 @@ class Metadata
     {
         $metadata = [];
 
-        if ($this->correlationId !== null) {
-            $metadata['correlation_id'] = $this->correlationId;
+        if ($this->_correlationId !== null) {
+            $metadata['correlation_id'] = $this->_correlationId;
         }
 
         return $metadata;

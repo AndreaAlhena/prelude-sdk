@@ -2,12 +2,12 @@
 
 namespace Prelude\SDK\Http;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Exceptions\ApiException;
+use Prelude\SDK\Exceptions\PreludeException;
 use Psr\Http\Message\ResponseInterface;
-use Exception;
 
 /**
  * HTTP Client for Prelude API

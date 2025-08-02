@@ -21,11 +21,11 @@ class VerificationResult
     private string $_id;
     private ?Metadata $_metadata;
     private VerificationMethod $_method;
+    private array $_rawData;
     private ?VerificationReason $_reason;
     private ?string $_requestId;
     private ?Silent $_silent;
     private VerificationStatus $_status;
-    private array $_rawData;
     
     /**
      * Create a new verification result instance

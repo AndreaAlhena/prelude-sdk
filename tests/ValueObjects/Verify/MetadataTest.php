@@ -5,7 +5,7 @@ use Prelude\SDK\ValueObjects\Verify\Metadata;
 describe('Metadata', function () {
     it('can be instantiated with correlation ID', function () {
         $metadata = new Metadata(
-            correlationId: 'test-correlation-123'
+            _correlationId: 'test-correlation-123'
         );
 
         expect($metadata)->toBeInstanceOf(Metadata::class);
@@ -19,7 +19,7 @@ describe('Metadata', function () {
 
     it('converts to correct array format with correlation ID', function () {
         $metadata = new Metadata(
-            correlationId: 'test-correlation-456'
+            _correlationId: 'test-correlation-456'
         );
 
         $result = $metadata->toArray();
@@ -39,7 +39,7 @@ describe('Metadata', function () {
 
     it('handles special characters in correlation ID', function () {
         $metadata = new Metadata(
-            correlationId: 'test-correlation-with-special-chars_123@domain.com'
+            _correlationId: 'test-correlation-with-special-chars_123@domain.com'
         );
 
         $result = $metadata->toArray();
@@ -51,7 +51,7 @@ describe('Metadata', function () {
 
     it('handles empty string correlation ID', function () {
         $metadata = new Metadata(
-            correlationId: ''
+            _correlationId: ''
         );
 
         $result = $metadata->toArray();
@@ -63,7 +63,7 @@ describe('Metadata', function () {
 
     it('maintains immutability of metadata data', function () {
         $metadata = new Metadata(
-            correlationId: 'immutable-test-123'
+            _correlationId: 'immutable-test-123'
         );
 
         $result1 = $metadata->toArray();

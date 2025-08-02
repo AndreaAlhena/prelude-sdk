@@ -3,9 +3,9 @@
 namespace Prelude\SDK\Models;
 
 use Prelude\SDK\Enums\Channel;
-use Prelude\SDK\Enums\VerificationStatus;
 use Prelude\SDK\Enums\VerificationMethod;
 use Prelude\SDK\Enums\VerificationReason;
+use Prelude\SDK\Enums\VerificationStatus;
 use Prelude\SDK\ValueObjects\Verify\Metadata;
 use Prelude\SDK\ValueObjects\Verify\Silent;
 

@@ -2,11 +2,11 @@
 
 namespace Prelude\SDK\Services;
 
-use Prelude\SDK\Http\HttpClient;
+use Prelude\SDK\Config\Config;
 use Prelude\SDK\Exceptions\PreludeException;
+use Prelude\SDK\Http\HttpClient;
 use Prelude\SDK\Models\Verification;
 use Prelude\SDK\Models\VerificationResult;
-use Prelude\SDK\Config\Config;
 use Prelude\SDK\ValueObjects\Verify\Metadata;
 use Prelude\SDK\ValueObjects\Verify\Options;
 use Prelude\SDK\ValueObjects\Verify\Signals;

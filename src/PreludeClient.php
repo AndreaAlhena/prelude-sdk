@@ -14,13 +14,13 @@ use Prelude\SDK\Exceptions\PreludeException;
  */
 class PreludeClient
 {
-    private HttpClient $httpClient;
-    private string $apiKey;
-    private string $baseUrl;
+    private string $_apiKey;
+    private string $_baseUrl;
+    private HttpClient $_httpClient;
     
     // Service instances
-    private ?TransactionalService $transactionalService = null;
-    private ?VerificationService $verificationService = null;
+    private ?TransactionalService $_transactionalService = null;
+    private ?VerificationService $_verificationService = null;
     
     /**
      * Create a new Prelude client instance
@@ -34,9 +34,9 @@ class PreludeClient
             throw new PreludeException('API key is required');
         }
         
-        $this->apiKey = $apiKey;
-        $this->baseUrl = rtrim($baseUrl, '/');
-        $this->httpClient = new HttpClient($this->apiKey, $this->baseUrl);
+        $this->_apiKey = $apiKey;
+        $this->_baseUrl = rtrim($baseUrl, '/');
+        $this->_httpClient = new HttpClient($this->_apiKey, $this->_baseUrl);
     }
     
     /**
@@ -46,11 +46,11 @@ class PreludeClient
      */
     public function transactional(): TransactionalService
     {
-        if ($this->transactionalService === null) {
-            $this->transactionalService = new TransactionalService($this->httpClient);
+        if ($this->_transactionalService === null) {
+            $this->_transactionalService = new TransactionalService($this->_httpClient);
         }
         
-        return $this->transactionalService;
+        return $this->_transactionalService;
     }
 
     /**
@@ -60,11 +60,11 @@ class PreludeClient
      */
     public function verification(): VerificationService
     {
-        if ($this->verificationService === null) {
-            $this->verificationService = new VerificationService($this->httpClient);
+        if ($this->_verificationService === null) {
+            $this->_verificationService = new VerificationService($this->_httpClient);
         }
         
-        return $this->verificationService;
+        return $this->_verificationService;
     }
     
     /**
@@ -74,7 +74,7 @@ class PreludeClient
      */
     public function getApiKey(): string
     {
-        return $this->apiKey;
+        return $this->_apiKey;
     }
     
     /**
@@ -84,7 +84,7 @@ class PreludeClient
      */
     public function getBaseUrl(): string
     {
-        return $this->baseUrl;
+        return $this->_baseUrl;
     }
     
     /**
@@ -95,10 +95,10 @@ class PreludeClient
      */
     public function setHttpClient(HttpClient $httpClient): void
     {
-        $this->httpClient = $httpClient;
+        $this->_httpClient = $httpClient;
         
         // Reset service instances to use new HTTP client
-        $this->transactionalService = null;
-        $this->verificationService = null;
+        $this->_transactionalService = null;
+        $this->_verificationService = null;
     }
 }

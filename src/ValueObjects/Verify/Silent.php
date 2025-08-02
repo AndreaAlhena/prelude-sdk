@@ -7,8 +7,8 @@ namespace Prelude\SDK\ValueObjects\Verify;
  */
 class Silent
 {
-    private bool $enabled;
-    private ?string $phoneNumber;
+    private bool $_enabled;
+    private ?string $_phoneNumber;
     
     /**
      * Create a new Silent instance
@@ -18,8 +18,8 @@ class Silent
      */
     public function __construct(bool $enabled, ?string $phoneNumber = null)
     {
-        $this->enabled = $enabled;
-        $this->phoneNumber = $phoneNumber;
+        $this->_enabled = $enabled;
+        $this->_phoneNumber = $phoneNumber;
     }
     
     /**
@@ -43,7 +43,7 @@ class Silent
      */
     public function isEnabled(): bool
     {
-        return $this->enabled;
+        return $this->_enabled;
     }
     
     /**
@@ -53,7 +53,7 @@ class Silent
      */
     public function getPhoneNumber(): ?string
     {
-        return $this->phoneNumber;
+        return $this->_phoneNumber;
     }
     
     /**
@@ -63,10 +63,10 @@ class Silent
      */
     public function toArray(): array
     {
-        $result = ['enabled' => $this->enabled];
+        $result = ['enabled' => $this->_enabled];
         
-        if ($this->phoneNumber !== null) {
-            $result['phone_number'] = $this->phoneNumber;
+        if ($this->_phoneNumber !== null) {
+            $result['phone_number'] = $this->_phoneNumber;
         }
         
         return $result;

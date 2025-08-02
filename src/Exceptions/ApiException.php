@@ -7,7 +7,7 @@ namespace Prelude\SDK\Exceptions;
  */
 class ApiException extends PreludeException
 {
-    private ?array $responseData;
+    private ?array $_responseData;
     
     /**
      * Create a new API exception
@@ -24,7 +24,7 @@ class ApiException extends PreludeException
         array $responseData = null
     ) {
         parent::__construct($message, $code, $previous);
-        $this->responseData = $responseData;
+        $this->_responseData = $responseData;
     }
     
     /**
@@ -34,7 +34,7 @@ class ApiException extends PreludeException
      */
     public function getResponseData(): ?array
     {
-        return $this->responseData;
+        return $this->_responseData;
     }
     
     /**
