@@ -150,6 +150,54 @@ if ($cancelled) {
 }
 ```
 
+## Examples
+
+The SDK includes comprehensive examples in the `examples/` directory:
+
+### Verification Example
+
+```bash
+php examples/verification.php
+```
+
+Demonstrates:
+- Creating OTP verifications
+- Checking verification codes
+- Handling verification responses
+- Error handling scenarios
+
+### Transactional Messaging Example
+
+```bash
+php examples/transactional.php
+```
+
+Demonstrates:
+- Sending basic transactional messages
+- Using message templates
+- Advanced options (variables, callbacks, etc.)
+- Message status tracking
+
+### Phone Number Lookup Example
+
+```bash
+php examples/lookup.php
+```
+
+Demonstrates:
+- Basic phone number lookups
+- Lookup with specific data types (CNAM, network info)
+- Working with different line types
+- Analyzing phone number flags
+- Network information extraction
+
+**Note:** Set your `PRELUDE_API_KEY` environment variable before running examples:
+
+```bash
+export PRELUDE_API_KEY="your-api-key-here"
+php examples/lookup.php
+```
+
 ## Error Handling
 
 The SDK provides comprehensive error handling:
