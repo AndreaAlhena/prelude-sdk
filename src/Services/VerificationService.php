@@ -7,10 +7,10 @@ use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Models\Verification;
 use Prelude\SDK\Models\VerificationResult;
 use Prelude\SDK\Config\Config;
-use Prelude\SDK\ValueObjects\Metadata;
-use Prelude\SDK\ValueObjects\Options;
-use Prelude\SDK\ValueObjects\Signals;
-use Prelude\SDK\ValueObjects\Target;
+use Prelude\SDK\ValueObjects\Verify\Metadata;
+use Prelude\SDK\ValueObjects\Verify\Options;
+use Prelude\SDK\ValueObjects\Verify\Signals;
+use Prelude\SDK\ValueObjects\Verify\Target;
 
 /**
  * Verification Service for OTP verification
