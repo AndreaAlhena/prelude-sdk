@@ -15,7 +15,6 @@ use Prelude\SDK\PreludeClient;
 use Prelude\SDK\Exceptions\PreludeException;
 use Prelude\SDK\Exceptions\ApiException;
 use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\Enums\VerificationStatus;
 use Prelude\SDK\ValueObjects\Verify\Target;
 use Prelude\SDK\ValueObjects\Verify\Options;
 
