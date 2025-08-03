@@ -1,5 +1,10 @@
 # API Docs
 1. Always refer to the official API docs https://docs.prelude.so
+2. Prepare an usage example for each API method
+3. When a new feature is added, prepare a test suite
+4. When a feature is removed, be sure to remove the unuseful related tests
+5. When a feature is modified, update the test suite accordingly
+6. Run tests before and after the change to ensure everything works as expected
 
 ## Api Docs Verify
 1. Verify API is documented here https://docs.prelude.so/verify/v2/documentation/introduction
@@ -30,3 +35,5 @@
 ## Import statements
 1. Always remove unused import statements
 2. Sort import statements alphabetically
+3. Group import statements by type (e.g. core PHP, external libraries, internal classes)
+4. Group import statements by namespace (e.g. Symfony components, Laravel facades, custom classes)
