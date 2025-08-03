@@ -15,7 +15,7 @@ composer require prelude/sdk
 
 ## Requirements
 
-- PHP 7.4 or higher
+- PHP 8.1 or higher
 - ext-json
 - GuzzleHttp 7.0+
 
