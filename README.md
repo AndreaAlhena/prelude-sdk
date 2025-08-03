@@ -19,6 +19,32 @@ composer require prelude/sdk
 - ext-json
 - GuzzleHttp 7.0+
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Verification Service](#verification-service)
+  - [Create Verification](#create-verification)
+  - [Check OTP](#check-otp)
+  - [Resend OTP](#resend-otp)
+- [Lookup Service](#lookup-service)
+  - [Phone Number Lookup](#phone-number-lookup)
+- [Transactional Service](#transactional-service)
+  - [Send Transactional Message](#send-transactional-message)
+- [Watch Service](#watch-service)
+  - [Predict Verification Outcome](#predict-verification-outcome)
+  - [Send Feedback](#send-feedback)
+  - [Dispatch Events](#dispatch-events)
+- [Examples](#examples)
+- [Error Handling](#error-handling)
+- [Models](#models)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+
 ## Quick Start
 
 ```php
@@ -117,26 +143,6 @@ if ($result->isSuccess()) {
 }
 ```
 
-### Check Verification Status
-
-```php
-$verification = $client->verification()->getVerificationStatus($verificationId);
-
-echo "Status: " . $verification->getStatus();
-echo "Attempts remaining: " . $verification->getAttemptsRemaining();
-
-// Check status with enum values
-use Prelude\SDK\Enums\VerificationStatus;
-
-if ($verification->getStatus() === VerificationStatus::SUCCESS->value) {
-    echo "Verification completed successfully";
-} elseif ($verification->getStatus() === VerificationStatus::BLOCKED->value) {
-    echo "Verification has been blocked";
-} elseif ($verification->getStatus() === VerificationStatus::RETRY->value) {
-    echo "Verification needs to be retried";
-}
-```
-
 ### Resend OTP
 
 ```php
@@ -144,13 +150,108 @@ $verification = $client->verification()->resendOtp($verificationId);
 echo "OTP resent. New expiry: " . $verification->getExpiresAt();
 ```
 
-### Cancel Verification
+
+
+## Lookup Service
+
+The Lookup Service provides phone number information and validation.
+
+### Phone Number Lookup
 
 ```php
-$cancelled = $client->verification()->cancelVerification($verificationId);
-if ($cancelled) {
-    echo "Verification cancelled successfully";
-}
+// Basic lookup
+$lookupResult = $client->lookup()->lookup('+1234567890');
+
+// Lookup with additional features (e.g., CNAM)
+$lookupResult = $client->lookup()->lookup('+1234567890', ['cnam']);
+
+echo "Carrier: " . $lookupResult->getCarrier();
+echo "Country: " . $lookupResult->getCountry();
+echo "Line Type: " . $lookupResult->getLineType();
+```
+
+## Transactional Service
+
+The Transactional Service allows sending transactional messages.
+
+### Send Transactional Message
+
+```php
+use Prelude\SDK\ValueObjects\Transactional\Options;
+
+// Basic transactional message
+$message = $client->transactional()->send(
+    '+1234567890',
+    'template_id_here'
+);
+
+// With additional options
+$options = new Options([
+    'variables' => ['name' => 'John', 'code' => '123456']
+]);
+
+$message = $client->transactional()->send(
+    '+1234567890',
+    'template_id_here',
+    $options
+);
+
+echo "Message ID: " . $message->getId();
+```
+
+## Watch Service
+
+The Watch Service provides fraud detection and prediction capabilities.
+
+### Predict Verification Outcome
+
+```php
+use Prelude\SDK\ValueObjects\Shared\Target;
+use Prelude\SDK\ValueObjects\Shared\Signals;
+use Prelude\SDK\ValueObjects\Shared\Metadata;
+
+$target = new Target('+1234567890');
+$signals = new Signals([
+    'ip_address' => '192.168.1.1',
+    'user_agent' => 'Mozilla/5.0...'
+]);
+
+$prediction = $client->watch()->predictOutcome($target, $signals);
+
+echo "Risk Score: " . $prediction->getRiskScore();
+echo "Recommendation: " . $prediction->getRecommendation();
+```
+
+### Send Feedback
+
+```php
+use Prelude\SDK\ValueObjects\Watch\Feedback;
+
+$feedbacks = [
+    new Feedback([
+        'verification_id' => 'ver_123',
+        'outcome' => 'success',
+        'fraud_detected' => false
+    ])
+];
+
+$client->watch()->sendFeedback($feedbacks);
+```
+
+### Dispatch Events
+
+```php
+use Prelude\SDK\ValueObjects\Watch\Event;
+
+$events = [
+    new Event([
+        'type' => 'verification_attempt',
+        'target' => '+1234567890',
+        'timestamp' => time()
+    ])
+];
+
+$response = $client->watch()->dispatchEvents($events);
 ```
 
 ## Examples
@@ -193,6 +294,18 @@ Demonstrates:
 - Working with different line types
 - Analyzing phone number flags
 - Network information extraction
+
+### Watch Service Example
+
+```bash
+php examples/watch.php
+```
+
+Demonstrates:
+- Predicting verification outcomes
+- Sending feedback data
+- Dispatching events
+- Fraud detection capabilities
 
 **Note:** Set your `PRELUDE_API_KEY` environment variable before running examples:
 
