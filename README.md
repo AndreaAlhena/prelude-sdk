@@ -3,14 +3,14 @@
 [![codecov](https://codecov.io/github/AndreaAlhena/prelude-sdk/graph/badge.svg?token=8D0QXLO08X)](https://codecov.io/github/AndreaAlhena/prelude-sdk)
 [![Made with Trae](https://img.shields.io/badge/Made%20with-Trae%20AI-blueviolet?style=flat&color=32F08B)](https://trae.ai)
 
-A comprehensive PHP SDK for integrating with Prelude services, including OTP verification.
+A comprehensive PHP SDK for integrating with [Prelude.so](https://prelude.so) services, including OTP verification.
 
 ## Installation
 
 Install the SDK using Composer:
 
 ```bash
-composer require prelude/sdk
+composer require prelude-so/sdk
 ```
 
 ## Requirements
