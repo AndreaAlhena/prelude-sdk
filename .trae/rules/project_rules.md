@@ -32,6 +32,9 @@
 2. Properties and methods should always be sorted alphabetically
 3. Properties that are optional should have a proper default value. In example, null for objects, empty string for strings and 0 for numbers (when possible)
 
+## Arrays
+1. Sort associative array keys in alphabetical order
+
 ## Import statements
 1. Always remove unused import statements
 2. Sort import statements alphabetically
