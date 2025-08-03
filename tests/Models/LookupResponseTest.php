@@ -78,8 +78,10 @@ test('LookupResponse → it converts to correct array format', function () {
     $array = $response->toArray();
     
     expect($array)->toBe([
-        'phone_number' => '+33123456789',
+        'caller_name' => 'FINN',
         'country_code' => 'FR',
+        'flags' => ['ported', 'temporary'],
+        'line_type' => 'mobile',
         'network_info' => [
             'carrier_name' => 'SFR',
             'mcc' => '208',
@@ -90,9 +92,7 @@ test('LookupResponse → it converts to correct array format', function () {
             'mcc' => '208',
             'mnc' => '01'
         ],
-        'flags' => ['ported', 'temporary'],
-        'caller_name' => 'FINN',
-        'line_type' => 'mobile'
+        'phone_number' => '+33123456789'
     ]);
 });
 

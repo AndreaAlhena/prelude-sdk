@@ -172,11 +172,11 @@ class Verification
     public function toArray(): array
     {
         $result = [
-            'id' => $this->_id,
-            'status' => $this->_status->value,
-            'method' => $this->_method->value,
             'channels' => array_map(fn($channel) => $channel->value, $this->_channels),
-            'request_id' => $this->_requestId
+            'id' => $this->_id,
+            'method' => $this->_method->value,
+            'request_id' => $this->_requestId,
+            'status' => $this->_status->value
         ];
         
         if ($this->_reason !== null) {

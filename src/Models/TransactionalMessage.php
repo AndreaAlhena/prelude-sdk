@@ -147,12 +147,12 @@ class TransactionalMessage
     public function toArray(): array
     {
         $result = [
-            'id' => $this->_id,
-            'to' => $this->_to,
-            'template_id' => $this->_templateId,
-            'variables' => $this->_variables,
-            'expires_at' => $this->_expiresAt->format('c'),
             'created_at' => $this->_createdAt->format('c'),
+            'expires_at' => $this->_expiresAt->format('c'),
+            'id' => $this->_id,
+            'template_id' => $this->_templateId,
+            'to' => $this->_to,
+            'variables' => $this->_variables,
         ];
 
         if (!empty($this->_from)) {

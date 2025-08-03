@@ -26,8 +26,8 @@ class Target
     public function toArray(): array
     {
         return [
-            'value' => $this->_value,
             'type' => $this->_type->value,
+            'value' => $this->_value,
         ];
     }
 }

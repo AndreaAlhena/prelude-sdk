@@ -33,9 +33,9 @@ class Event
     public function toArray(): array
     {
         return [
-            'target' => $this->_target->toArray(),
-            'label' => $this->_label,
             'confidence' => $this->_confidence->value,
+            'label' => $this->_label,
+            'target' => $this->_target->toArray(),
         ];
     }
 }

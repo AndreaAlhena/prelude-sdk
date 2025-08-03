@@ -80,13 +80,13 @@ class LookupResponse
     public function toArray(): array
     {
         return [
-            'phone_number' => $this->_phoneNumber,
+            'caller_name' => $this->_callerName,
             'country_code' => $this->_countryCode,
+            'flags' => array_map(fn(Flag $flag) => $flag->value, $this->_flags),
+            'line_type' => $this->_lineType->value,
             'network_info' => $this->_networkInfo->toArray(),
             'original_network_info' => $this->_originalNetworkInfo->toArray(),
-            'flags' => array_map(fn(Flag $flag) => $flag->value, $this->_flags),
-            'caller_name' => $this->_callerName,
-            'line_type' => $this->_lineType->value,
+            'phone_number' => $this->_phoneNumber,
         ];
     }
 }

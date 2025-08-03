@@ -34,8 +34,8 @@ it('converts to correct array format', function () {
     $array = $response->toArray();
     
     expect($array)->toBe([
-        'status' => 'pending',
-        'request_id' => 'req_abcdef123'
+        'request_id' => 'req_abcdef123',
+        'status' => 'pending'
     ]);
 });
 

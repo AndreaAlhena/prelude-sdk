@@ -24,8 +24,8 @@ describe('Shared Target', function () {
         $result = $target->toArray();
 
         expect($result)->toBe([
-            'value' => '+33123456789',
-            'type' => 'phone_number'
+            'type' => 'phone_number',
+            'value' => '+33123456789'
         ]);
     });
 

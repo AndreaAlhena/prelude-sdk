@@ -70,12 +70,12 @@ describe('TransactionalMessage Model', function () {
         $array = $message->toArray();
 
         $expected = [
-            'id' => 'msg_789',
-            'to' => '+1234567890',
-            'template_id' => 'template_abc',
-            'variables' => ['user' => 'Jane'],
-            'expires_at' => '2023-01-01T01:00:00+00:00',
             'created_at' => '2023-01-01T00:00:00+00:00',
+            'expires_at' => '2023-01-01T01:00:00+00:00',
+            'id' => 'msg_789',
+            'template_id' => 'template_abc',
+            'to' => '+1234567890',
+            'variables' => ['user' => 'Jane'],
             'from' => 'Prelude',
             'callback_url' => 'https://example.com/callback',
             'correlation_id' => 'corr_456'

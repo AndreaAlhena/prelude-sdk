@@ -173,14 +173,14 @@ class VerificationResult
     public function toArray(): array
     {
         return [
+            'channels' => $this->_channels,
             'id' => $this->_id,
-            'status' => $this->_status->value,
+            'metadata' => $this->_metadata?->toArray(),
             'method' => $this->_method->value,
             'reason' => $this->_reason?->value,
-            'channels' => $this->_channels,
+            'request_id' => $this->_requestId,
             'silent' => $this->_silent?->toArray(),
-            'metadata' => $this->_metadata?->toArray(),
-            'request_id' => $this->_requestId
+            'status' => $this->_status->value
         ];
     }
 }

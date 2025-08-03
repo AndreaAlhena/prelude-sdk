@@ -32,8 +32,8 @@ class DispatchResponse
     public function toArray(): array
     {
         return [
-            'status' => $this->_status,
             'request_id' => $this->_requestId,
+            'status' => $this->_status,
         ];
     }
 }
