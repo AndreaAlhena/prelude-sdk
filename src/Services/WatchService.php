@@ -4,6 +4,7 @@ namespace Prelude\SDK\Services;
 
 use Prelude\SDK\Config\Config;
 use Prelude\SDK\Http\HttpClient;
+
 use Prelude\SDK\Models\DispatchResponse;
 use Prelude\SDK\Models\PredictResponse;
 use Prelude\SDK\ValueObjects\Shared\Metadata;

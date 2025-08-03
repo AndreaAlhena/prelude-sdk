@@ -9,8 +9,8 @@ use Prelude\SDK\Models\Verification;
 use Prelude\SDK\Models\VerificationResult;
 use Prelude\SDK\ValueObjects\Shared\Metadata;
 use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Verify\Options;
 use Prelude\SDK\ValueObjects\Shared\Target;
+use Prelude\SDK\ValueObjects\Verify\Options;
 
 /**
  * Verification Service for OTP verification

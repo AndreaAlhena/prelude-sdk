@@ -44,6 +44,26 @@ class PreludeClient
     }
     
     /**
+     * Get the API key
+     * 
+     * @return string
+     */
+    public function getApiKey(): string
+    {
+        return $this->_apiKey;
+    }
+    
+    /**
+     * Get the base URL
+     * 
+     * @return string
+     */
+    public function getBaseUrl(): string
+    {
+        return $this->_baseUrl;
+    }
+
+    /**
      * Get Lookup service instance
      * 
      * @return LookupService
@@ -55,6 +75,23 @@ class PreludeClient
         }
         
         return $this->_lookupService;
+    }
+    
+    /**
+     * Set a custom HTTP client
+     * 
+     * @param HttpClient $httpClient
+     * @return void
+     */
+    public function setHttpClient(HttpClient $httpClient): void
+    {
+        $this->_httpClient = $httpClient;
+        
+        // Reset service instances to use new HTTP client
+        $this->_lookupService = null;
+        $this->_transactionalService = null;
+        $this->_verificationService = null;
+        $this->_watchService = null;
     }
 
     /**
@@ -97,42 +134,5 @@ class PreludeClient
         }
         
         return $this->_watchService;
-    }
-    
-    /**
-     * Get the API key
-     * 
-     * @return string
-     */
-    public function getApiKey(): string
-    {
-        return $this->_apiKey;
-    }
-    
-    /**
-     * Get the base URL
-     * 
-     * @return string
-     */
-    public function getBaseUrl(): string
-    {
-        return $this->_baseUrl;
-    }
-    
-    /**
-     * Set a custom HTTP client
-     * 
-     * @param HttpClient $httpClient
-     * @return void
-     */
-    public function setHttpClient(HttpClient $httpClient): void
-    {
-        $this->_httpClient = $httpClient;
-        
-        // Reset service instances to use new HTTP client
-        $this->_lookupService = null;
-        $this->_transactionalService = null;
-        $this->_verificationService = null;
-        $this->_watchService = null;
     }
 }
