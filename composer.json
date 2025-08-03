@@ -1,5 +1,5 @@
 {
-    "name": "prelude/sdk",
+    "name": "prelude-so/sdk",
     "version": "1.0.0",
     "description": "PHP SDK for Prelude services including OTP SMS verification",
     "type": "library",
@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "guzzlehttp/guzzle": "^7.0",
         "ext-json": "*"
     },
