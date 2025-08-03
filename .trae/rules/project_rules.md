@@ -35,6 +35,9 @@
 ## Arrays
 1. Sort associative array keys in alphabetical order
 
+## Enums
+1. Sort enum cases alphabetically
+
 ## Import statements
 1. Always remove unused import statements
 2. Sort import statements alphabetically
