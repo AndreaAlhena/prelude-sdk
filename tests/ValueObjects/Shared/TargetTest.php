@@ -1,7 +1,7 @@
 <?php
 
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
 
 describe('Shared Target', function () {
     it('can be instantiated with phone number target', function () {

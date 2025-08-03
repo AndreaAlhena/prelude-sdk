@@ -1,11 +1,11 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Verify;
+namespace PreludeSo\SDK\ValueObjects\Verify;
 
-use Prelude\SDK\Enums\OptionsMethod;
-use Prelude\SDK\Enums\OptionsLocale;
-use Prelude\SDK\Enums\PreferredChannel;
-use Prelude\SDK\ValueObjects\Verify\AppRealm;
+use PreludeSo\SDK\Enums\OptionsMethod;
+use PreludeSo\SDK\Enums\OptionsLocale;
+use PreludeSo\SDK\Enums\PreferredChannel;
+use PreludeSo\SDK\ValueObjects\Verify\AppRealm;
 
 class Options
 {

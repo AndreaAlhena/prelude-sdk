@@ -1,10 +1,10 @@
 <?php
 
-namespace Prelude\SDK\Models;
+namespace PreludeSo\SDK\Models;
 
-use Prelude\SDK\Enums\Flag;
-use Prelude\SDK\Enums\LineType;
-use Prelude\SDK\ValueObjects\Lookup\NetworkInfo;
+use PreludeSo\SDK\Enums\Flag;
+use PreludeSo\SDK\Enums\LineType;
+use PreludeSo\SDK\ValueObjects\Lookup\NetworkInfo;
 
 /**
  * Represents a phone number lookup response

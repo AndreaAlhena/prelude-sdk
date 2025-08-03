@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Shared;
+namespace PreludeSo\SDK\ValueObjects\Shared;
 
 class Metadata
 {

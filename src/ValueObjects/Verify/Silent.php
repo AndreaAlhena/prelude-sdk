@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Verify;
+namespace PreludeSo\SDK\ValueObjects\Verify;
 
 /**
  * Silent verification properties

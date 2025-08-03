@@ -1,11 +1,11 @@
 <?php
 
-use Prelude\SDK\Enums\SignalDevicePlatform;
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\ValueObjects\Shared\Metadata;
-use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Watch\Feedback;
+use PreludeSo\SDK\Enums\SignalDevicePlatform;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Watch\Feedback;
 
 describe('Watch Feedback', function () {
     it('can be instantiated with only target and type', function () {

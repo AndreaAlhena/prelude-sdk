@@ -1,13 +1,13 @@
 <?php
 
-namespace Prelude\SDK;
+namespace PreludeSo\SDK;
 
-use Prelude\SDK\Exceptions\PreludeException;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Services\LookupService;
-use Prelude\SDK\Services\TransactionalService;
-use Prelude\SDK\Services\VerificationService;
-use Prelude\SDK\Services\WatchService;
+use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\Services\LookupService;
+use PreludeSo\SDK\Services\TransactionalService;
+use PreludeSo\SDK\Services\VerificationService;
+use PreludeSo\SDK\Services\WatchService;
 
 /**
  * Main Prelude SDK Client

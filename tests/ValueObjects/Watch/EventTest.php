@@ -1,9 +1,9 @@
 <?php
 
-use Prelude\SDK\Enums\Confidence;
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Watch\Event;
+use PreludeSo\SDK\Enums\Confidence;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Watch\Event;
 
 it('can be instantiated with all parameters', function () {
     $target = new Target(

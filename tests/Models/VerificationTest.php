@@ -3,13 +3,13 @@
 namespace Tests\Models;
 
 use PHPUnit\Framework\TestCase;
-use Prelude\SDK\Models\Verification;
-use Prelude\SDK\Enums\Channel;
-use Prelude\SDK\Enums\VerificationStatus;
-use Prelude\SDK\Enums\VerificationMethod;
-use Prelude\SDK\Enums\VerificationReason;
-use Prelude\SDK\ValueObjects\Shared\Metadata;
-use Prelude\SDK\ValueObjects\Verify\Silent;
+use PreludeSo\SDK\Models\Verification;
+use PreludeSo\SDK\Enums\Channel;
+use PreludeSo\SDK\Enums\VerificationStatus;
+use PreludeSo\SDK\Enums\VerificationMethod;
+use PreludeSo\SDK\Enums\VerificationReason;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Verify\Silent;
 
 class VerificationTest extends TestCase
 {

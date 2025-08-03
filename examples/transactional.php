@@ -2,10 +2,10 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Prelude\SDK\PreludeClient;
-use Prelude\SDK\ValueObjects\Transactional\Options;
-use Prelude\SDK\Exceptions\ApiException;
-use Prelude\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\PreludeClient;
+use PreludeSo\SDK\ValueObjects\Transactional\Options;
+use PreludeSo\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\Exceptions\PreludeException;
 
 echo "=== Prelude Transactional API Example ===\n\n";
 

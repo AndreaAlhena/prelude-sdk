@@ -1,9 +1,9 @@
 <?php
 
-use Prelude\SDK\PreludeClient;
-use Prelude\SDK\Services\VerificationService;
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\PreludeClient;
+use PreludeSo\SDK\Services\VerificationService;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\Exceptions\PreludeException;
 
 beforeEach(function () {
     $this->apiKey = 'test-api-key';

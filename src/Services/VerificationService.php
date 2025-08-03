@@ -1,16 +1,16 @@
 <?php
 
-namespace Prelude\SDK\Services;
+namespace PreludeSo\SDK\Services;
 
-use Prelude\SDK\Config\Config;
-use Prelude\SDK\Exceptions\PreludeException;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Models\Verification;
-use Prelude\SDK\Models\VerificationResult;
-use Prelude\SDK\ValueObjects\Shared\Metadata;
-use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Verify\Options;
+use PreludeSo\SDK\Config\Config;
+use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\Models\Verification;
+use PreludeSo\SDK\Models\VerificationResult;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Verify\Options;
 
 /**
  * Verification Service for OTP verification

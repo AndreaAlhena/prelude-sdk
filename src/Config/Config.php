@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\Config;
+namespace PreludeSo\SDK\Config;
 
 /**
  * Configuration class for Prelude SDK

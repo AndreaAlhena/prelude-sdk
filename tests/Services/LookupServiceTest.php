@@ -1,10 +1,10 @@
 <?php
 
-use Prelude\SDK\Enums\Flag;
-use Prelude\SDK\Enums\LineType;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Models\LookupResponse;
-use Prelude\SDK\Services\LookupService;
+use PreludeSo\SDK\Enums\Flag;
+use PreludeSo\SDK\Enums\LineType;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\Models\LookupResponse;
+use PreludeSo\SDK\Services\LookupService;
 
 test('LookupService → it can lookup a phone number', function () {
     $mockHttpClient = test()->createMock(HttpClient::class);

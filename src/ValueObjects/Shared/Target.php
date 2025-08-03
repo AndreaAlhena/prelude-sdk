@@ -1,8 +1,8 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Shared;
+namespace PreludeSo\SDK\ValueObjects\Shared;
 
-use Prelude\SDK\Enums\TargetType;
+use PreludeSo\SDK\Enums\TargetType;
 
 class Target
 {

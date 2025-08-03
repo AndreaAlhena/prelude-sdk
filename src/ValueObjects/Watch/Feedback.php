@@ -1,10 +1,10 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Watch;
+namespace PreludeSo\SDK\ValueObjects\Watch;
 
-use Prelude\SDK\ValueObjects\Shared\Metadata;
-use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
 
 class Feedback
 {

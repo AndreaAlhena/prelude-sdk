@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\Models\DispatchResponse;
+use PreludeSo\SDK\Models\DispatchResponse;
 
 it('can be instantiated with all parameters', function () {
     $response = new DispatchResponse(

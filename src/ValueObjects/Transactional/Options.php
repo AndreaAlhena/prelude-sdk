@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Transactional;
+namespace PreludeSo\SDK\ValueObjects\Transactional;
 
 /**
  * Transactional Options value object

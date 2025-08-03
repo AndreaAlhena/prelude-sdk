@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Transactional\Options;
+use PreludeSo\SDK\ValueObjects\Transactional\Options;
 
 describe('Options', function () {
     it('can be instantiated with no parameters', function () {

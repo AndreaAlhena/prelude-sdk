@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
 
 describe('Shared Metadata', function () {
     it('can be instantiated with no parameters', function () {

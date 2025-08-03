@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\Enums;
+namespace PreludeSo\SDK\Enums;
 
 /**
  * Phone line types for different categories of phone numbers

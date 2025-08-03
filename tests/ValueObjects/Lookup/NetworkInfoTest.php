@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Lookup\NetworkInfo;
+use PreludeSo\SDK\ValueObjects\Lookup\NetworkInfo;
 
 test('NetworkInfo → it can be instantiated with all parameters', function () {
     $networkInfo = new NetworkInfo(

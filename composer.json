@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Prelude\\SDK\\": "src/"
+            "PreludeSo\\SDK\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Prelude\\SDK\\Tests\\": "tests/"
+            "PreludeSo\\SDK\\Tests\\": "tests/"
         }
     },
     "scripts": {

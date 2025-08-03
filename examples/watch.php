@@ -10,9 +10,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Prelude\SDK\PreludeClient;
-use Prelude\SDK\Exceptions\PreludeException;
-use Prelude\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\PreludeClient;
+use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\Exceptions\ApiException;
 
 // Configuration
 $apiKey = getenv('PRELUDE_API_KEY') ?: 'your-api-key-here';

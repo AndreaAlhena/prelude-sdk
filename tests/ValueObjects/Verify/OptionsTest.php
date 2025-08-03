@@ -1,11 +1,11 @@
 <?php
 
-use Prelude\SDK\ValueObjects\Verify\Options;
-use Prelude\SDK\ValueObjects\Verify\AppRealm;
-use Prelude\SDK\Enums\OptionsMethod;
-use Prelude\SDK\Enums\OptionsLocale;
-use Prelude\SDK\Enums\AppRealmPlatform;
-use Prelude\SDK\Enums\PreferredChannel;
+use PreludeSo\SDK\ValueObjects\Verify\Options;
+use PreludeSo\SDK\ValueObjects\Verify\AppRealm;
+use PreludeSo\SDK\Enums\OptionsMethod;
+use PreludeSo\SDK\Enums\OptionsLocale;
+use PreludeSo\SDK\Enums\AppRealmPlatform;
+use PreludeSo\SDK\Enums\PreferredChannel;
 
 describe('Options', function () {
     it('can be instantiated with template ID only', function () {

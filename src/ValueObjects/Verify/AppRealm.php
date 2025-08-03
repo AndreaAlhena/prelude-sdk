@@ -1,8 +1,8 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Verify;
+namespace PreludeSo\SDK\ValueObjects\Verify;
 
-use Prelude\SDK\Enums\AppRealmPlatform;
+use PreludeSo\SDK\Enums\AppRealmPlatform;
 
 final class AppRealm
 {

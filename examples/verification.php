@@ -11,12 +11,12 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Prelude\SDK\PreludeClient;
-use Prelude\SDK\Exceptions\PreludeException;
-use Prelude\SDK\Exceptions\ApiException;
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Verify\Options;
+use PreludeSo\SDK\PreludeClient;
+use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Verify\Options;
 
 // Configuration
 $apiKey = 'your-api-key-here'; // Replace with your actual API key

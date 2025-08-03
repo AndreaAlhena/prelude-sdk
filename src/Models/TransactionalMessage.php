@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\Models;
+namespace PreludeSo\SDK\Models;
 
 use DateTime;
 

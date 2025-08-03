@@ -1,13 +1,13 @@
 <?php
 
-use Prelude\SDK\Config\Config;
-use Prelude\SDK\Enums\Confidence;
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Models\DispatchResponse;
-use Prelude\SDK\Services\WatchService;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Watch\Event;
+use PreludeSo\SDK\Config\Config;
+use PreludeSo\SDK\Enums\Confidence;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\Models\DispatchResponse;
+use PreludeSo\SDK\Services\WatchService;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Watch\Event;
 
 describe('WatchService dispatchEvents', function () {
     it('can dispatch single event successfully', function () {

@@ -1,8 +1,8 @@
 <?php
 
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\PreludeClient;
-use Prelude\SDK\Services\WatchService;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\PreludeClient;
+use PreludeSo\SDK\Services\WatchService;
 
 describe('PreludeClient Watch Integration', function () {
     it('can access watch service through client', function () {

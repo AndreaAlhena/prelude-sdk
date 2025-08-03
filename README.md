@@ -52,8 +52,8 @@ composer require prelude/sdk
 
 require_once 'vendor/autoload.php';
 
-use Prelude\SDK\PreludeClient;
-use Prelude\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\PreludeClient;
+use PreludeSo\SDK\Exceptions\PreludeException;
 
 // Initialize the client
 $client = new PreludeClient('your-api-key');
@@ -98,7 +98,7 @@ The Verification service provides OTP verification functionality.
 ### Create Verification
 
 ```php
-use Prelude\SDK\Enums\TargetType;
+use PreludeSo\SDK\Enums\TargetType;
 
 // Basic phone number verification
 $verification = $client->verification()->create('+1234567890', TargetType::PHONE_NUMBER);
@@ -177,7 +177,7 @@ The Transactional Service allows sending transactional messages.
 ### Send Transactional Message
 
 ```php
-use Prelude\SDK\ValueObjects\Transactional\Options;
+use PreludeSo\SDK\ValueObjects\Transactional\Options;
 
 // Basic transactional message
 $message = $client->transactional()->send(
@@ -206,9 +206,9 @@ The Watch Service provides fraud detection and prediction capabilities.
 ### Predict Verification Outcome
 
 ```php
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
 
 $target = new Target('+1234567890');
 $signals = new Signals([
@@ -225,7 +225,7 @@ echo "Recommendation: " . $prediction->getRecommendation();
 ### Send Feedback
 
 ```php
-use Prelude\SDK\ValueObjects\Watch\Feedback;
+use PreludeSo\SDK\ValueObjects\Watch\Feedback;
 
 $feedbacks = [
     new Feedback([
@@ -241,7 +241,7 @@ $client->watch()->sendFeedback($feedbacks);
 ### Dispatch Events
 
 ```php
-use Prelude\SDK\ValueObjects\Watch\Event;
+use PreludeSo\SDK\ValueObjects\Watch\Event;
 
 $events = [
     new Event([
@@ -319,8 +319,8 @@ php examples/lookup.php
 The SDK provides comprehensive error handling:
 
 ```php
-use Prelude\SDK\Exceptions\PreludeException;
-use Prelude\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\Exceptions\ApiException;
 
 try {
     $verification = $client->verification()->create('+1234567890');

@@ -1,13 +1,13 @@
 <?php
 
-use Prelude\SDK\Services\VerificationService;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Models\Verification;
-use Prelude\SDK\Models\VerificationResult;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\Enums\TargetType;
-use Prelude\SDK\Config\Config;
-use Prelude\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\Services\VerificationService;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\Models\Verification;
+use PreludeSo\SDK\Models\VerificationResult;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\Config\Config;
+use PreludeSo\SDK\Exceptions\ApiException;
 
 describe('VerificationService', function () {
 

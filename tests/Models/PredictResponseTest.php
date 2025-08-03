@@ -1,6 +1,6 @@
 <?php
 
-use Prelude\SDK\Models\PredictResponse;
+use PreludeSo\SDK\Models\PredictResponse;
 
 describe('PredictResponse', function () {
     it('can be instantiated with constructor', function () {

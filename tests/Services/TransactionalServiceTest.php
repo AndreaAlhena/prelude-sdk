@@ -1,12 +1,12 @@
 <?php
 
-use Prelude\SDK\Services\TransactionalService;
-use Prelude\SDK\Http\HttpClient;
-use Prelude\SDK\Models\TransactionalMessage;
-use Prelude\SDK\ValueObjects\Transactional\Options;
-use Prelude\SDK\Config\Config;
-use Prelude\SDK\Exceptions\PreludeException;
-use Prelude\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\Services\TransactionalService;
+use PreludeSo\SDK\Http\HttpClient;
+use PreludeSo\SDK\Models\TransactionalMessage;
+use PreludeSo\SDK\ValueObjects\Transactional\Options;
+use PreludeSo\SDK\Config\Config;
+use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\Exceptions\ApiException;
 
 describe('TransactionalService', function () {
 

@@ -1,9 +1,9 @@
 <?php
 
-use Prelude\SDK\Enums\Flag;
-use Prelude\SDK\Enums\LineType;
-use Prelude\SDK\Models\LookupResponse;
-use Prelude\SDK\ValueObjects\Lookup\NetworkInfo;
+use PreludeSo\SDK\Enums\Flag;
+use PreludeSo\SDK\Enums\LineType;
+use PreludeSo\SDK\Models\LookupResponse;
+use PreludeSo\SDK\ValueObjects\Lookup\NetworkInfo;
 
 test('LookupResponse → it can be instantiated with all parameters', function () {
     $networkInfo = new NetworkInfo('SFR', '208', '13');

@@ -1,17 +1,17 @@
 <?php
 
-namespace Prelude\SDK\Services;
+namespace PreludeSo\SDK\Services;
 
-use Prelude\SDK\Config\Config;
-use Prelude\SDK\Http\HttpClient;
+use PreludeSo\SDK\Config\Config;
+use PreludeSo\SDK\Http\HttpClient;
 
-use Prelude\SDK\Models\DispatchResponse;
-use Prelude\SDK\Models\PredictResponse;
-use Prelude\SDK\ValueObjects\Shared\Metadata;
-use Prelude\SDK\ValueObjects\Shared\Signals;
-use Prelude\SDK\ValueObjects\Shared\Target;
-use Prelude\SDK\ValueObjects\Watch\Event;
-use Prelude\SDK\ValueObjects\Watch\Feedback;
+use PreludeSo\SDK\Models\DispatchResponse;
+use PreludeSo\SDK\Models\PredictResponse;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Watch\Event;
+use PreludeSo\SDK\ValueObjects\Watch\Feedback;
 
 class WatchService
 {

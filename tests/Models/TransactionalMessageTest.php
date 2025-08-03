@@ -1,8 +1,8 @@
 <?php
 
 use DateTime;
-use Prelude\SDK\Models\TransactionalMessage;
-use Prelude\SDK\ValueObjects\Transactional\Options;
+use PreludeSo\SDK\Models\TransactionalMessage;
+use PreludeSo\SDK\ValueObjects\Transactional\Options;
 
 describe('TransactionalMessage Model', function () {
     it('can be instantiated with basic data', function () {

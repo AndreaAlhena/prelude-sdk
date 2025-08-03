@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\Exceptions;
+namespace PreludeSo\SDK\Exceptions;
 
 use Exception;
 

@@ -1,7 +1,7 @@
 <?php
 
-use Prelude\SDK\Enums\SignalDevicePlatform;
-use Prelude\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\Enums\SignalDevicePlatform;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
 
 describe('Shared Signals', function () {
     it('can be instantiated with no parameters', function () {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\Enums;
+namespace PreludeSo\SDK\Enums;
 
 /**
  * Channel enum for verification channels

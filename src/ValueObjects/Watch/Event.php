@@ -1,9 +1,9 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Watch;
+namespace PreludeSo\SDK\ValueObjects\Watch;
 
-use Prelude\SDK\Enums\Confidence;
-use Prelude\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\Confidence;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
 
 class Event
 {

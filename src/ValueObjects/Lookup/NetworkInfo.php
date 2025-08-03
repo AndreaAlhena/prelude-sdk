@@ -1,6 +1,6 @@
 <?php
 
-namespace Prelude\SDK\ValueObjects\Lookup;
+namespace PreludeSo\SDK\ValueObjects\Lookup;
 
 /**
  * Represents network information for a phone number
