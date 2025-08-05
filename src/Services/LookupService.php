@@ -3,6 +3,7 @@
 namespace PreludeSo\SDK\Services;
 
 use PreludeSo\SDK\Config\Config;
+use PreludeSo\SDK\Enums\LookupType;
 use PreludeSo\SDK\Exceptions\PreludeException;
 use PreludeSo\SDK\Http\HttpClient;
 use PreludeSo\SDK\Models\LookupResponse;
@@ -26,7 +27,7 @@ final class LookupService
      * Lookup information for a phone number
      * 
      * @param string $phoneNumber The phone number in E.164 format
-     * @param array $type Optional features (e.g., ['cnam'])
+     * @param LookupType[] $type Optional features (e.g., [LookupType::CNAM])
      * @return LookupResponse
      * @throws PreludeException
      */
