@@ -23,6 +23,11 @@
 2. Watch API Send Feedbacks is documented here https://docs.prelude.so/watch/v2/api-reference/send-feedbacks
 3. Watch API Dispatch Events is documented here https://docs.prelude.so/watch/v2/api-reference/dispatch-events
 
+# README / CHANGELOG
+1. When a feature is added, updated or removed, update the CHANGELOG.md file
+2. When a feature is added, updated or removed, update the README.md file
+3. When a feature is added, updated or removed, create or update examples
+
 # Coding style
 1. Always separate declarative blocks from imperative blocks
 2. Always use strict typing
