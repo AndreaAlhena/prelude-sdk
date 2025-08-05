@@ -15,8 +15,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use PreludeSo\SDK\PreludeClient;
 use PreludeSo\SDK\Exceptions\PreludeException;
 use PreludeSo\SDK\Exceptions\ApiException;
-use PreludeSo\SDK\Enums\LineType;
 use PreludeSo\SDK\Enums\Flag;
+use PreludeSo\SDK\Enums\LineType;
+use PreludeSo\SDK\Enums\LookupType;
 
 // Configuration
 $apiKey = getenv('PRELUDE_API_KEY') ?: 'your-api-key-here';
@@ -72,7 +73,7 @@ try {
     // Example 2: Lookup with specific types
     echo "2. Lookup with CNAM (Caller Name) data type...\n";
     
-    $cnamLookup = $client->lookup()->lookup($phoneNumber, ['cnam']);
+    $cnamLookup = $client->lookup()->lookup($phoneNumber, [LookupType::CNAM->value]);
     
     echo "   ✓ CNAM lookup completed!\n";
     echo "   Phone Number: {$cnamLookup->getPhoneNumber()}\n";
@@ -82,7 +83,7 @@ try {
     // Example 3: Lookup with multiple types
     echo "3. Lookup with multiple data types (cnam, network_info)...\n";
     
-    $multiTypeLookup = $client->lookup()->lookup($phoneNumber, ['cnam', 'network_info']);
+    $multiTypeLookup = $client->lookup()->lookup($phoneNumber, [LookupType::CNAM->value, 'network_info']);
     
     echo "   ✓ Multi-type lookup completed!\n";
     echo "   Phone Number: {$multiTypeLookup->getPhoneNumber()}\n";

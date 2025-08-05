@@ -159,15 +159,24 @@ The Lookup Service provides phone number information and validation.
 ### Phone Number Lookup
 
 ```php
+use PreludeSo\SDK\Enums\LookupType;
+
 // Basic lookup
 $lookupResult = $client->lookup()->lookup('+1234567890');
 
 // Lookup with additional features (e.g., CNAM)
-$lookupResult = $client->lookup()->lookup('+1234567890', ['cnam']);
+$lookupResult = $client->lookup()->lookup('+1234567890', [LookupType::CNAM->value]);
 
-echo "Carrier: " . $lookupResult->getCarrier();
-echo "Country: " . $lookupResult->getCountry();
-echo "Line Type: " . $lookupResult->getLineType();
+echo "Phone Number: " . $lookupResult->getPhoneNumber();
+echo "Country Code: " . $lookupResult->getCountryCode();
+echo "Line Type: " . $lookupResult->getLineType()->value;
+echo "Caller Name: " . $lookupResult->getCallerName();
+
+// Display network information
+$networkInfo = $lookupResult->getNetworkInfo();
+echo "Carrier: " . $networkInfo->getCarrierName();
+echo "MCC: " . $networkInfo->getMcc();
+echo "MNC: " . $networkInfo->getMnc();
 ```
 
 ## Transactional Service
