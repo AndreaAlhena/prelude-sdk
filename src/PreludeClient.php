@@ -8,6 +8,7 @@ use PreludeSo\SDK\Services\LookupService;
 use PreludeSo\SDK\Services\TransactionalService;
 use PreludeSo\SDK\Services\VerificationService;
 use PreludeSo\SDK\Services\WatchService;
+use PreludeSo\SDK\Services\WebhookService;
 
 /**
  * Main Prelude SDK Client
@@ -25,6 +26,7 @@ class PreludeClient
     private ?TransactionalService $_transactionalService = null;
     private ?VerificationService $_verificationService = null;
     private ?WatchService $_watchService = null;
+    private ?WebhookService $_webhookService = null;
     
     /**
      * Create a new Prelude client instance
@@ -92,6 +94,7 @@ class PreludeClient
         $this->_transactionalService = null;
         $this->_verificationService = null;
         $this->_watchService = null;
+        $this->_webhookService = null;
     }
 
     /**
@@ -134,5 +137,19 @@ class PreludeClient
         }
         
         return $this->_watchService;
+    }
+
+    /**
+     * Get Webhook service instance
+     * 
+     * @return WebhookService
+     */
+    public function webhook(): WebhookService
+    {
+        if ($this->_webhookService === null) {
+            $this->_webhookService = new WebhookService();
+        }
+        
+        return $this->_webhookService;
     }
 }

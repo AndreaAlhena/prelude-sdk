@@ -2,6 +2,7 @@
 
 use PreludeSo\SDK\PreludeClient;
 use PreludeSo\SDK\Services\VerificationService;
+use PreludeSo\SDK\Services\WebhookService;
 use PreludeSo\SDK\Enums\TargetType;
 use PreludeSo\SDK\Exceptions\PreludeException;
 
@@ -109,4 +110,25 @@ it('normalizes base URL by removing trailing slashes', function () {
     // Test that multiple trailing slashes are removed
     $client2 = new PreludeClient($this->apiKey, 'https://api.test.prelude.com///');
     expect($client2->getBaseUrl())->toBe('https://api.test.prelude.com');
+});
+
+it('provides access to Webhook service', function () {
+    $client = new PreludeClient($this->apiKey);
+    $webhookService = $client->webhook();
+    
+    expect($webhookService)->toBeInstanceOf(WebhookService::class);
+    
+    // Test that the same instance is returned on subsequent calls
+    $webhookService2 = $client->webhook();
+    expect($webhookService2)->toBe($webhookService);
+});
+
+it('webhook service has required methods', function () {
+    $client = new PreludeClient($this->apiKey);
+    $webhookService = $client->webhook();
+    
+    // Test that the webhook service methods exist
+    expect(method_exists($webhookService, 'processWebhook'))->toBeTrue();
+    expect(method_exists($webhookService, 'parseWebhookData'))->toBeTrue();
+    expect(method_exists($webhookService, 'parseWebhookPayload'))->toBeTrue();
 });
