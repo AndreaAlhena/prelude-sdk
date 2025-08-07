@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2025-08-07
+
+### Added
+- **PreludeClient Integration**: Added WebhookService integration to PreludeClient
+  - `webhook()`: Access WebhookService instance through main client
+  - Consistent service pattern following other services (lookup, verification, transactional, watch)
+  - Singleton pattern for efficient service instance management
+  - Automatic service reset when HTTP client is updated
+- **WebhookService Client Example**: Added `webhook_client.php` example demonstrating WebhookService usage through PreludeClient
+  - Shows three different processing approaches: `processWebhook()`, `parseWebhookData()`, and `parseWebhookPayload()`
+  - Includes proper error handling and realistic webhook data structure
+  - Demonstrates accessing typed payload data and event information
+- **Enhanced Documentation**: Updated README.md with WebhookService client integration examples
+- **Comprehensive Tests**: Added PreludeClient webhook service integration tests
+  - Service instance creation and singleton behavior validation
+  - Method availability verification for all webhook service methods
+
 ## [1.2.0] - 2025-08-07
 
 ### Added

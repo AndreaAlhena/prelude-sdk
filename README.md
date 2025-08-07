@@ -83,6 +83,11 @@ try {
         echo "Verification failed. Status: " . $result->getStatus()->value . "\n";
     }
     
+    // Process webhook data (typically in your webhook endpoint)
+    $webhookData = /* webhook data from request */;
+    $webhookResult = $client->webhook()->processWebhook($webhookData);
+    echo "Webhook event: " . $webhookResult['event']->getType() . "\n";
+    
 } catch (PreludeException $e) {
     echo "Error: " . $e->getMessage() . "\n";
 }
@@ -281,11 +286,13 @@ The `WebhookService` provides a centralized way to process webhook events from P
 ### Basic Usage
 
 ```php
-use PreludeSo\SDK\Services\WebhookService;
+use PreludeSo\SDK\PreludeClient;
 use PreludeSo\SDK\ValueObjects\Webhook\VerifyPayload;
 use PreludeSo\SDK\ValueObjects\Webhook\TransactionalPayload;
 
-$webhookService = new WebhookService();
+// Access WebhookService through PreludeClient
+$client = new PreludeClient('your-api-key');
+$webhookService = $client->webhook();
 
 // Get webhook data from request
 $webhookData = json_decode(file_get_contents('php://input'), true);
@@ -621,6 +628,12 @@ Run the WebhookService example:
 php examples/webhook_service.php
 ```
 
+Run the WebhookService with PreludeClient example:
+
+```bash
+php examples/webhook_client.php
+```
+
 These examples demonstrate:
 - Processing webhook events from Prelude
 - Working with typed payload objects (VerifyPayload, TransactionalPayload, GenericPayload)
@@ -629,6 +642,7 @@ These examples demonstrate:
 - Real-world webhook endpoint implementation
 - Event filtering and processing patterns
 - Using WebhookService for centralized webhook processing
+- Accessing WebhookService through PreludeClient
 
 **Note:** Set your `PRELUDE_API_KEY` environment variable before running examples:
 
