@@ -1,6 +1,6 @@
 {
     "name": "prelude-so/sdk",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "PHP SDK for Prelude services including OTP SMS verification",
     "type": "library",
     "keywords": ["prelude", "prelude.so", "sms", "otp", "verification", "sdk"],
