@@ -33,8 +33,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-789',
-            'variables' => []
+            'template_id' => 'template-789'
         ]);
     });
 
@@ -69,8 +68,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'empty-vars-template',
-            'variables' => []
+            'template_id' => 'empty-vars-template'
         ]);
     });
 
@@ -82,8 +80,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-with-special_chars@123',
-            'variables' => []
+            'template_id' => 'template-with-special_chars@123'
         ]);
     });
 
@@ -350,7 +347,6 @@ describe('Options', function () {
 
         expect($result)->toBe([
             'template_id' => 'template-456',
-            'variables' => [],
             'app_realm' => [
                 'platform' => 'android',
                 'value' => 'com.example.android'
@@ -395,8 +391,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-null',
-            'variables' => []
+            'template_id' => 'template-null'
         ]);
         expect($result)->not->toHaveKey('app_realm');
     });
@@ -462,8 +457,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-789',
-            'variables' => []
+            'template_id' => 'template-789'
         ]);
         expect($result)->not->toHaveKey('code_size');
     });
@@ -527,8 +521,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-789',
-            'variables' => []
+            'template_id' => 'template-789'
         ]);
         expect($result)->not->toHaveKey('custom_code');
     });
@@ -594,8 +587,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-789',
-            'variables' => []
+            'template_id' => 'template-789'
         ]);
         expect($result)->not->toHaveKey('callback_url');
     });
@@ -634,8 +626,7 @@ describe('Options', function () {
         $result = $options->toArray();
 
         expect($result)->toBe([
-            'template_id' => 'template-789',
-            'variables' => []
+            'template_id' => 'template-789'
         ]);
         expect($result)->not->toHaveKey('preferred_channel');
     });

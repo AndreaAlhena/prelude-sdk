@@ -10,7 +10,7 @@ use PreludeSo\SDK\ValueObjects\Verify\AppRealm;
 class Options
 {
     public function __construct(
-        private string $_templateId,
+        private string $_templateId = '',
         private array $_variables = [],
         private ?AppRealm $_appRealm = null,
         private string $_callbackUrl = '',
@@ -25,10 +25,15 @@ class Options
 
     public function toArray(): array
     {
-        $result = [
-            'template_id' => $this->_templateId,
-            'variables' => $this->_variables,
-        ];
+        $result = [];
+
+        if ($this->_templateId !== '') {
+            $result['template_id'] = $this->_templateId;
+        }
+
+        if ($this->_variables !== []) {
+            $result['variables'] = $this->_variables;
+        }
 
         if ($this->_method !== null) {
             $result['method'] = $this->_method->value;
