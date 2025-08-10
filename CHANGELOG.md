@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2025-08-10
+
+### Improved
+- **Code Quality**: Enhanced array emptiness check in Verify Options class
+  - Replaced `!== []` with `!empty()` for better PHP standards compliance
+  - Improved code readability and semantic clarity
+  - Updated corresponding tests to align with new behavior where empty arrays are excluded from serialization
+
 ## [1.2.1] - 2025-08-07
 
 ### Added
