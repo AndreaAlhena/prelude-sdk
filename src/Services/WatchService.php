@@ -22,6 +22,23 @@ class WatchService
     }
 
     /**
+     * Dispatch events to the Watch API
+     *
+     * @param Event[] $events Array of event objects
+     * @return DispatchResponse
+     */
+    public function dispatchEvents(array $events): DispatchResponse
+    {
+        $requestData = [
+            'events' => array_map(fn(Event $event) => $event->toArray(), $events)
+        ];
+
+        $response = $this->_httpClient->post(Config::ENDPOINT_WATCH_EVENT, $requestData);
+
+        return DispatchResponse::fromArray($response);
+    }
+    
+    /**
      * Predict the outcome of a verification
      *
      * @param Target $target The target to predict for
@@ -67,22 +84,5 @@ class WatchService
         ];
 
         return $this->_httpClient->post(Config::ENDPOINT_WATCH_FEEDBACK, $requestData);
-    }
-
-    /**
-     * Dispatch events to the Watch API
-     *
-     * @param Event[] $events Array of event objects
-     * @return DispatchResponse
-     */
-    public function dispatchEvents(array $events): DispatchResponse
-    {
-        $requestData = [
-            'events' => array_map(fn(Event $event) => $event->toArray(), $events)
-        ];
-
-        $response = $this->_httpClient->post(Config::ENDPOINT_WATCH_EVENT, $requestData);
-
-        return DispatchResponse::fromArray($response);
     }
 }
