@@ -5,13 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.2] - 2025-08-10
+## [1.2.2] - 2025-08-11
 
 ### Improved
 - **Code Quality**: Enhanced array emptiness check in Verify Options class
   - Replaced `!== []` with `!empty()` for better PHP standards compliance
   - Improved code readability and semantic clarity
   - Updated corresponding tests to align with new behavior where empty arrays are excluded from serialization
+
+### Fixed
+- **Documentation**: Fixed README.md usage examples to match actual method signatures
+  - Corrected constructor parameter usage from named parameters to positional parameters for all value objects (Signals, Options, Metadata, Event, Feedback)
+  - Fixed verification check method example to use Target object instead of verification ID
+  - Fixed LookupType usage to use enum instances instead of string values
+  - All examples now accurately reflect the actual API and can be copied directly into user code
 
 ## [1.2.1] - 2025-08-07
 
