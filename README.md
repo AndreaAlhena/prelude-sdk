@@ -65,29 +65,26 @@ require_once 'vendor/autoload.php';
 
 use PreludeSo\SDK\PreludeClient;
 use PreludeSo\SDK\Exceptions\PreludeException;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\TargetType;
 
 // Initialize the client
 $client = new PreludeClient('your-api-key');
 
 try {
     // Create a verification
-    $verification = $client->verification()->create('+1234567890');
+    $target = new Target('+1234567890', TargetType::PHONE_NUMBER);
+    $verification = $client->verification()->create($target);
     echo "Verification ID: " . $verification->getId() . "\n";
     
     // Check the OTP (user provides the code)
-    $result = $client->verification()->check($verification->getId(), '123456');
+    $result = $client->verification()->check($target, '123456');
     
     if ($result->isSuccess()) {
         echo "Phone number verified successfully!\n";
     } else {
         echo "Verification failed. Status: " . $result->getStatus()->value . "\n";
     }
-    
-    // Process webhook data (typically in your webhook endpoint)
-    $webhookData = /* webhook data from request */;
-    $webhookResult = $client->webhook()->processWebhook($webhookData);
-    echo "Webhook event: " . $webhookResult['event']->getType() . "\n";
-    
 } catch (PreludeException $e) {
     echo "Error: " . $e->getMessage() . "\n";
 }
@@ -114,54 +111,65 @@ The Verification service provides OTP verification functionality.
 ### Create Verification
 
 ```php
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Verify\Options;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
 use PreludeSo\SDK\Enums\TargetType;
 
-// Basic phone number verification
-$verification = $client->verification()->create('+1234567890', TargetType::PHONE_NUMBER);
+// Basic verification
+$target = new Target('+1234567890', TargetType::PHONE_NUMBER);
+$signals = new Signals(
+    _ip: '192.168.1.1',
+    _userAgent: 'Mozilla/5.0...'
+);
 
-// Email verification
-$verification = $client->verification()->create('user@example.com', TargetType::EMAIL_ADDRESS);
+$verification = $client->verification()->create($target, $signals);
 
 // With additional options
-$verification = $client->verification()->create('+1234567890', TargetType::PHONE_NUMBER, [
-    'options' => [
-        'template' => 'custom_template',
-        'expiry_minutes' => 10,
-        'code_length' => 6
-    ],
-    'metadata' => [
-        'user_id' => '12345',
-        'source' => 'mobile_app'
-    ]
-]);
+$options = new Options(
+    _channels: ['sms', 'voice'],
+    _codeLength: 6
+    _locale: 'en-US',
+    _templateId: 'custom_template'
+);
+
+$metadata = new Metadata(
+    _correlationId: 'user_123_verification'
+);
+
+$verification = $client->verification()->create(
+    $target,
+    $signals,
+    $options,
+    $metadata
+);
 
 echo "Verification ID: " . $verification->getId();
-echo "Status: " . $verification->getStatus();
-echo "Expires at: " . $verification->getExpiresAt();
 ```
 
 ### Check Verification
 
 ```php
-$result = $client->verification()->check($verificationId, $userProvidedCode);
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\TargetType;
 
-if ($result->isSuccess()) {
+$target = new Target('+1234567890', TargetType::PHONE_NUMBER);
+$code = '123456';
+
+$result = $client->verification()->check($target, $code);
+
+if ($result->isValid()) {
     echo "Verification successful!";
 } else {
-    echo "Verification failed. Status: " . $result->getStatus()->value;
-    
-    // Check specific failure reasons
-    if ($result->isBlocked()) {
-        echo "The verification has been blocked";
-    } elseif ($result->isRetry()) {
-        echo "Please retry the verification";
-    }
+    echo "Invalid code";
 }
 ```
 
 ### Resend OTP
 
 ```php
+$verificationId = 'vrf_01jc0t6fwwfgfsq1md24mhyztj'; // From previous verification
 $verification = $client->verification()->resendOtp($verificationId);
 echo "OTP resent. New expiry: " . $verification->getExpiresAt();
 ```
@@ -193,6 +201,13 @@ $networkInfo = $lookupResult->getNetworkInfo();
 echo "Carrier: " . $networkInfo->getCarrierName();
 echo "MCC: " . $networkInfo->getMcc();
 echo "MNC: " . $networkInfo->getMnc();
+
+// Check if number is valid
+if ($lookupResult->isValid()) {
+    echo "Valid phone number";
+} else {
+    echo "Invalid phone number";
+}
 ```
 
 ## Transactional Service
@@ -211,9 +226,14 @@ $message = $client->transactional()->send(
 );
 
 // With additional options
-$options = new Options([
-    'variables' => ['name' => 'John', 'code' => '123456']
-]);
+$options = new Options(
+    _variables: ['name' => 'John', 'code' => '123456'],
+    _from: 'MyApp',
+    _locale: 'en-US',
+    _expiresAt: '2024-01-15T11:00:00Z',
+    _callbackUrl: 'https://example.com/webhook',
+    _correlationId: 'user-123-verification'
+);
 
 $message = $client->transactional()->send(
     '+1234567890',
@@ -234,30 +254,49 @@ The Watch Service provides fraud detection and prediction capabilities.
 use PreludeSo\SDK\ValueObjects\Shared\Target;
 use PreludeSo\SDK\ValueObjects\Shared\Signals;
 use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\Enums\SignalDevicePlatform;
 
-$target = new Target('+1234567890');
-$signals = new Signals([
-    'ip_address' => '192.168.1.1',
-    'user_agent' => 'Mozilla/5.0...'
-]);
+$target = new Target('+1234567890', TargetType::PHONE_NUMBER);
+$signals = new Signals(
+    _ip: '192.168.1.1',
+    _deviceId: '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
+    _devicePlatform: SignalDevicePlatform::IOS,
+    _userAgent: 'Mozilla/5.0...'
+);
 
 $prediction = $client->watch()->predictOutcome($target, $signals);
 
-echo "Risk Score: " . $prediction->getRiskScore();
-echo "Recommendation: " . $prediction->getRecommendation();
+echo "Prediction ID: " . $prediction->getId();
+echo "Prediction: " . $prediction->getPrediction();
 ```
 
 ### Send Feedback
 
 ```php
 use PreludeSo\SDK\ValueObjects\Watch\Feedback;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\ValueObjects\Shared\Signals;
+use PreludeSo\SDK\ValueObjects\Shared\Metadata;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\Enums\SignalDevicePlatform;
+
+$target = new Target('+1234567890', TargetType::PHONE_NUMBER);
+$signals = new Signals(
+    '192.168.1.1',
+    '8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2',
+    SignalDevicePlatform::IOS
+);
+$metadata = new Metadata('user-123-verification');
 
 $feedbacks = [
-    new Feedback([
-        'verification_id' => 'ver_123',
-        'outcome' => 'success',
-        'fraud_detected' => false
-    ])
+    new Feedback(
+        $target,
+        'verification.started',
+        $signals,
+        '123e4567-e89b-12d3-a456-426614174000',
+        $metadata
+    )
 ];
 
 $client->watch()->sendFeedback($feedbacks);
@@ -267,16 +306,23 @@ $client->watch()->sendFeedback($feedbacks);
 
 ```php
 use PreludeSo\SDK\ValueObjects\Watch\Event;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\TargetType;
+use PreludeSo\SDK\Enums\Confidence;
+
+$target = new Target('+1234567890', TargetType::PHONE_NUMBER);
 
 $events = [
-    new Event([
-        'type' => 'verification_attempt',
-        'target' => '+1234567890',
-        'timestamp' => time()
-    ])
+    new Event(
+        $target,
+        'fraud_detected',
+        Confidence::HIGH
+    )
 ];
 
 $response = $client->watch()->dispatchEvents($events);
+echo "Status: " . $response->getStatus();
+echo "Request ID: " . $response->getRequestId();
 ```
 
 ## Webhook Service
@@ -658,9 +704,12 @@ The SDK provides comprehensive error handling:
 ```php
 use PreludeSo\SDK\Exceptions\PreludeException;
 use PreludeSo\SDK\Exceptions\ApiException;
+use PreludeSo\SDK\ValueObjects\Shared\Target;
+use PreludeSo\SDK\Enums\TargetType;
 
 try {
-    $verification = $client->verification()->create('+1234567890');
+    $target = new Target('+1234567890', TargetType::PHONE_NUMBER);
+    $verification = $client->verification()->create($target, null, null);
 } catch (ApiException $e) {
     // API-specific errors (4xx, 5xx responses)
     echo "API Error: " . $e->getMessage();
