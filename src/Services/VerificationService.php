@@ -38,7 +38,7 @@ final class VerificationService
      * @return Verification
      * @throws PreludeException
      */
-    public function create(Target $target, ?Signals $signals, ?Options $options, ?Metadata $metadata = null, string $dispatchId = ''): Verification
+    public function create(Target $target, ?Signals $signals = null, ?Options $options = null, ?Metadata $metadata = null, string $dispatchId = ''): Verification
     {
         $data = ['target' => $target->toArray()];
 
